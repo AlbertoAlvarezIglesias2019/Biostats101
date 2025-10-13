@@ -1,0 +1,130 @@
+title: Boxplot
+name: boxplot
+jus: '3.0'
+stage: 0
+compilerMode: tame
+children:
+  - type: VariableSupplier
+    persistentItems: false
+    stretchFactor: 1
+    children:
+      - type: TargetLayoutBox
+        label: Y-axis (Response)
+        children:
+          - type: VariablesListBox
+            name: yyy
+            maxItemCount: 1
+            isTarget: true
+      - type: TargetLayoutBox
+        label: X-axis (Grouping variable)
+        children:
+          - type: VariablesListBox
+            name: xxx
+            maxItemCount: 1
+            isTarget: true
+      - type: TargetLayoutBox
+        label: Color by
+        children:
+          - type: VariablesListBox
+            name: ccc
+            maxItemCount: 1
+            isTarget: true
+      - type: TargetLayoutBox
+        label: Panel by
+        children:
+          - type: VariablesListBox
+            name: ppp
+            maxItemCount: 1
+            isTarget: true
+  - type: CollapseBox
+    label: Appearence
+    collapsed: true
+    margin: large
+    children:
+      - type: LayoutBox
+        margin: large
+        children:
+          - type: Label
+            label: General
+            children:
+              - type: ComboBox
+                name: lpo
+              - type: CheckBox
+                name: imis
+              - type: CheckBox
+                name: logt
+              - type: CheckBox
+                name: fli
+              - type: CheckBox
+                name: dat
+              - type: CheckBox
+                name: reli
+              - type: TextBox
+                name: rlva
+                format: number
+                enable: (reli)
+          - type: Label
+            label: Size
+            children:
+              - type: LayoutBox
+                style: inline
+                children:
+                  - type: Label
+                    label: FONT
+                  - type: RadioButton
+                    name: fosi_fs
+                    optionName: fosi
+                    optionPart: fs
+                  - type: RadioButton
+                    name: fosi_fm
+                    optionName: fosi
+                    optionPart: fm
+                  - type: RadioButton
+                    name: fosi_fl
+                    optionName: fosi
+                    optionPart: fl
+  - type: CollapseBox
+    label: Labels and titles
+    collapsed: true
+    margin: large
+    children:
+      - type: LayoutBox
+        margin: large
+        children:
+          - type: TextBox
+            name: mti
+            stretchFactor: 1
+            format: string
+      - type: LayoutBox
+        margin: large
+        children:
+          - type: TextBox
+            name: msti
+            stretchFactor: 1
+            format: string
+      - type: LayoutBox
+        margin: large
+        children:
+          - type: TextBox
+            name: xax
+            format: string
+      - type: LayoutBox
+        margin: large
+        children:
+          - type: TextBox
+            name: yax
+            format: string
+      - type: LayoutBox
+        margin: large
+        children:
+          - type: TextBox
+            name: lti
+            format: string
+
+      - type: LayoutBox
+        margin: large
+        children:
+          - type: TextBox
+            name: mist
+            format: string
+            enable: (imis)

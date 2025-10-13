@@ -1,0 +1,60 @@
+---
+name:  twoprop
+title: Two proportions..
+jrs:   '1.1'
+
+items:
+    - name:  text
+      title: Two proportions..
+      type:  Preformatted
+
+    - name: ghostplot
+      type: Image
+      width: 700
+      height: 1
+      renderFun: .ghostplot
+      
+    - name:  warning_message
+      type:  Html
+      
+    - name:  tablestyle_normal_1
+      type:  Html
+
+    - name:  tablestyle_normal_2
+      type:  Html
+
+    - name:  warning_message_summ
+      type:  Html
+      
+    - name:  tablestyle_normal_summ_1
+      type:  Html
+      visible: (summ_yn)
+      
+    - name:  tablestyle_normal_summ_2
+      type:  Html
+      visible: (summ_yn)
+      
+    - name:  tablestyle_boot
+      type:  Html
+      clearWith:
+          - yyy
+      visible: (boot_yn)
+  
+     
+    - name: boot_plot_interval
+      title: Bootstrap Intervals
+      type: Image
+      width: 500
+      height: 300
+      renderFun: .boot_plot_interval
+      visible: (boot_yn && boot_intervalplot_yn) 
+      
+    - name: boot_plot_null
+      title: Bootstrap Null Distribution
+      type: Image
+      width: 500
+      height: 300
+      renderFun: .boot_plot_null
+      visible: (boot_yn && testyn_boot && boot_nullplot_yn)
+      
+...

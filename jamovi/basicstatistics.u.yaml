@@ -1,0 +1,117 @@
+title: Basic Statistics
+name: basicstatistics
+jus: '3.0'
+stage: 0
+compilerMode: tame
+children:
+  - type: VariableSupplier
+    persistentItems: false
+    stretchFactor: 1
+    children:
+      - type: TargetLayoutBox
+        label: Outcome/s
+        children:
+          - type: VariablesListBox
+            name: yyy
+            isTarget: true
+      - type: TargetLayoutBox
+        label: Group by
+        children:
+          - type: VariablesListBox
+            name: xxx
+            maxItemCount: 1
+            isTarget: true
+
+  - type: Label
+    label: Summaries numerical
+    children:
+      - type: CheckBox
+        name: allco
+      - type: ComboBox
+        name: suco
+        enable: (!allco)
+      - type: TextBox
+        name: nd_num
+        format: number
+  - type: Label
+    label: Summaries categorical
+    children:
+      - type: ComboBox
+        name: suca
+      - type: TextBox
+        name: nd_cat
+        format: number
+            
+  - type: CollapseBox
+    label: Options
+    collapsed: true
+    margin: large
+    children:
+      - type: Label
+        label: General
+        children:
+          - type: LayoutBox
+            margin: large
+            children:
+              - type: CheckBox
+                name: addp
+              - type: CheckBox
+                name: addt
+              - type: CheckBox
+                name: addn
+              - type: CheckBox
+                name: imis
+
+      - type: Label
+        label: Size
+        children:
+          - type: LayoutBox
+            style: inline
+            children:
+              - type: Label
+                label: FONT
+              - type: RadioButton
+                name: tasi_ts
+                optionName: tasi
+                optionPart: ts
+              - type: RadioButton
+                name: tasi_tm
+                optionName: tasi
+                optionPart: tm
+              - type: RadioButton
+                name: tasi_tl
+                optionName: tasi
+                optionPart: tl
+
+  - type: CollapseBox
+    label: Labels and Titles
+    collapsed: true
+    margin: large
+    children:
+      - type: LayoutBox
+        margin: large
+        children:
+          - type: TextBox
+            name: mti
+            stretchFactor: 1
+            format: string
+      - type: LayoutBox
+        margin: large
+        children:
+          - type: TextBox
+            name: mist
+            format: string
+      - type: LayoutBox
+        margin: large
+        children:
+          - type: TextBox
+            name: varl
+            format: string
+      - type: LayoutBox
+        margin: large
+        children:
+          - type: TextBox
+            name: heal
+            format: string
+
+

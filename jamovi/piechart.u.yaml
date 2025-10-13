@@ -1,0 +1,117 @@
+title: Pie Chart..
+name: piechart
+jus: '3.0'
+stage: 0
+compilerMode: tame
+children:
+  - type: VariableSupplier
+    persistentItems: false
+    stretchFactor: 1
+    children:
+      - type: TargetLayoutBox
+        label: Outcome
+        children:
+          - type: VariablesListBox
+            name: yyy
+            maxItemCount: 1
+            isTarget: true
+      - type: TargetLayoutBox
+        label: Panel by
+        children:
+          - type: VariablesListBox
+            name: ppp
+            maxItemCount: 1
+            isTarget: true
+  - type: CollapseBox
+    label: Summarised data in a table
+    collapsed: true
+    margin: large
+    children:
+      - type: VariableSupplier
+        persistentItems: false
+        stretchFactor: 1
+        children:
+          - type: TargetLayoutBox
+            label: Columns containing the table
+            children:
+              - type: VariablesListBox
+                name: summ_data
+                isTarget: true
+          - type: TargetLayoutBox
+            label: Labels for the table
+            children:
+              - type: VariablesListBox
+                name: summ_lab
+                maxItemCount: 1
+                isTarget: true
+              - type: LevelSelector
+                name: summ_lab_ref
+  - type: CollapseBox
+    label: Appearence
+    collapsed: true
+    margin: large
+    children:
+      - type: LayoutBox
+        margin: large
+        children:
+          - type: ComboBox
+            name: lpo
+          - type: ComboBox
+            name: suty   
+          - type: CheckBox
+            name: imis
+          - type: TextBox
+            name: nd
+            format: number
+      - type: Label
+        label: Size
+        children:
+          - type: LayoutBox
+            style: inline
+            children:
+              - type: Label
+                label: FONT
+              - type: RadioButton
+                name: tasi_ts
+                optionName: tasi
+                optionPart: ts
+              - type: RadioButton
+                name: tasi_tm
+                optionName: tasi
+                optionPart: tm
+              - type: RadioButton
+                name: tasi_tl
+                optionName: tasi
+                optionPart: tl
+  - type: CollapseBox
+    label: Labels and titles
+    collapsed: true
+    margin: large
+    children:
+      - type: LayoutBox
+        margin: large
+        children:
+          - type: TextBox
+            name: mti
+            stretchFactor: 1
+            format: string
+      - type: LayoutBox
+        margin: large
+        children:
+          - type: TextBox
+            name: msti
+            stretchFactor: 1
+            format: string
+      - type: LayoutBox
+        margin: large
+        children:
+          - type: TextBox
+            name: lti
+            format: string
+      - type: LayoutBox
+        margin: large
+        children:
+          - type: TextBox
+            name: mist
+            format: string
+            enable: (imis)

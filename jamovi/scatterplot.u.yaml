@@ -1,0 +1,183 @@
+title: Scatterplot
+name: scatterplot
+jus: '3.0'
+stage: 0
+compilerMode: tame
+children:
+  - type: VariableSupplier
+    persistentItems: false
+    stretchFactor: 1
+    children:
+      - type: TargetLayoutBox
+        label: Y-axis (Response)
+        children:
+          - type: VariablesListBox
+            name: yyy
+            maxItemCount: 1
+            isTarget: true
+      - type: TargetLayoutBox
+        label: X-axis (Predictor)
+        children:
+          - type: VariablesListBox
+            name: xxx
+            maxItemCount: 1
+            isTarget: true
+      - type: TargetLayoutBox
+        label: Color by
+        children:
+          - type: VariablesListBox
+            name: ccc
+            maxItemCount: 1
+            isTarget: true
+      - type: TargetLayoutBox
+        label: Panel by
+        children:
+          - type: VariablesListBox
+            name: ppp
+            maxItemCount: 1
+            isTarget: true
+  - type: CollapseBox
+    label: Appearence
+    collapsed: true
+    margin: large
+    children:
+      - type: LayoutBox
+        margin: large
+        children:
+          - type: Label
+            label: General
+            children:
+              - type: ComboBox
+                name: lpo
+              - type: CheckBox
+                name: imis
+              - type: CheckBox
+                name: logt
+              - type: CheckBox
+                name: fli
+              - type: CheckBox
+                name: saxy
+              - type: CheckBox
+                name: lieq
+          - type: Label
+            label: Best fit
+            children:
+              - type: LayoutBox
+                style: inline
+                children:
+                  - type: Label
+                    label: METHOD
+                  - type: RadioButton
+                    name: befi_non
+                    optionName: befi
+                    optionPart: non
+                  - type: RadioButton
+                    name: befi_reg
+                    optionName: befi
+                    optionPart: reg
+                  - type: RadioButton
+                    name: befi_smo
+                    optionName: befi
+                    optionPart: smo
+              - type: CheckBox
+                name: addi
+                enable: (befi_reg || befi_smo)
+          - type: Label
+            label: Size
+            children:
+              - type: LayoutBox
+                style: inline
+                children:
+                  - type: Label
+                    label: FONT
+                  - type: RadioButton
+                    name: fosi_fs
+                    optionName: fosi
+                    optionPart: fs
+                  - type: RadioButton
+                    name: fosi_fm
+                    optionName: fosi
+                    optionPart: fm
+                  - type: RadioButton
+                    name: fosi_fl
+                    optionName: fosi
+                    optionPart: fl
+              - type: LayoutBox
+                style: inline
+                children:
+                  - type: Label
+                    label: POINTS
+                  - type: RadioButton
+                    name: posi_ps
+                    optionName: posi
+                    optionPart: ps
+                  - type: RadioButton
+                    name: posi_pm
+                    optionName: posi
+                    optionPart: pm
+                  - type: RadioButton
+                    name: posi_pl
+                    optionName: posi
+                    optionPart: pl
+              - type: LayoutBox
+                style: inline
+                children:
+                  - type: Label
+                    label: 'LINES  '
+                  - type: RadioButton
+                    name: lisi_ls
+                    optionName: lisi
+                    optionPart: ls
+                  - type: RadioButton
+                    name: lisi_lm
+                    optionName: lisi
+                    optionPart: lm
+                  - type: RadioButton
+                    name: lisi_ll
+                    optionName: lisi
+                    optionPart: ll
+  - type: CollapseBox
+    label: Labels and titles
+    collapsed: true
+    margin: large
+    children:
+      - type: LayoutBox
+        margin: large
+        children:
+          - type: TextBox
+            name: mti
+            stretchFactor: 1
+            format: string
+      - type: LayoutBox
+        margin: large
+        children:
+          - type: TextBox
+            name: msti
+            stretchFactor: 1
+            format: string
+      - type: LayoutBox
+        margin: large
+        children:
+          - type: TextBox
+            name: xax
+            format: string
+      - type: LayoutBox
+        margin: large
+        children:
+          - type: TextBox
+            name: yax
+            format: string
+      - type: LayoutBox
+        margin: large
+        children:
+          - type: TextBox
+            name: lti
+            format: string
+      - type: LayoutBox
+        margin: large
+        children:
+          - type: TextBox
+            name: mist
+            format: string
+            enable: (imis)
+

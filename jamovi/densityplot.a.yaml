@@ -1,0 +1,99 @@
+---
+name:  densityplot
+title: Density Plot..
+menuGroup: Biostats101
+version: '1.0.0'
+jas: '1.2'
+
+options:
+    - name: data
+      type: Data
+
+    - name: yyy
+      title: Outcome
+      type: Variable
+      suggested:
+        - continuous
+      permitted:
+        - numeric
+    - name: xxx
+      title: Grouping variable
+      type: Variable
+      suggested:
+        - nominal
+        - ordinal
+      permitted:
+        - factor
+      
+    - name: ppp
+      title: Panel by
+      type: Variable
+      suggested:
+        - nominal
+        - ordinal
+      permitted:
+        - factor
+        
+    - name: logt
+      title: Log transform
+      type: Bool
+      default: false   
+      
+    - name: imis
+      title: Include Missing
+      type: Bool
+      default: false  
+      
+    - name: lpo
+      title: Legend position
+      type: List
+      options:
+        - title: None
+          name:  none
+        - title: Left
+          name:  left
+        - title: Top
+          name:  top
+        - title: Right
+          name:  right
+        - title: Bottom
+          name:  bottom
+      default: right
+      
+    - name: fosi
+      title: Font size
+      type: List
+      options:
+        - title: Small
+          name:  fs
+        - title: Medium
+          name:  fm
+        - title: Large
+          name:  fl
+      default: fm      
+
+    - name: mti
+      title: Main title
+      type: String
+
+    - name: msti
+      title: Subtitle
+      type: String
+      
+    - name: xax
+      title: X-axis label
+      type: String
+      
+    - name: yax
+      title: Y-axis label
+      type: String
+      
+    - name: lti
+      title: Legend title
+      type: String
+      
+    - name: mist
+      title: Missing Label
+      type: String
+      default: "(Unknown)"
+...

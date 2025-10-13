@@ -1,0 +1,121 @@
+---
+name:  onesign
+title: One-Sample Sign..
+menuGroup: Biostats101
+version: '1.0.0'
+jas: '1.2'
+
+options:
+
+    - name: data
+      type: Data
+
+    - name: yyy
+      title: Outcome
+      type: Variable
+      suggested: [ continuous ]
+      permitted: [ numeric ]
+      
+    - name: nude
+      title: Decimals
+      type: Integer
+      min: 0
+      max: 6
+      default: 1  
+      
+    - name: imis
+      title: Include Missing
+      type: Bool
+      default: false  
+      
+
+    - name: tasi
+      title: Font size
+      type: List
+      options:
+        - title: Small
+          name:  ts
+        - title: Medium
+          name:  tm
+        - title: Large
+          name:  tl
+      default: tm
+
+      
+    - name: testyn_test
+      title: Perform hypothesis test
+      type: Bool
+      default: false 
+      
+    - name: conf_test
+      title: Confidence level
+      type: Number
+      min: 0
+      max: 100
+      default: 95  
+      
+    - name: nh_test
+      title: hypothesised median
+      type: Number
+      default: 0  
+      
+    - name: alt_test
+      title: Alternative hypothesis
+      type: List
+      options:
+        - title: Greater
+          name:  greater
+        - title: Less
+          name:  less
+        - title: Two-sided
+          name:  two.sided
+      default: two.sided
+      
+
+    - name: boot_yn
+      title: Calculate interval
+      type: Bool
+      default: false 
+      
+    - name: conf_boot
+      title: Confidence level
+      type: Number
+      min: 0
+      max: 100
+      default: 95  
+      
+    - name: testyn_boot
+      title: Perform hypothesis test
+      type: Bool
+      default: false 
+      
+    - name: nh_boot
+      title: hypothesised proportion
+      type: Number
+      default: 0  
+      
+    - name: alt_boot
+      title: Alternative hypothesis
+      type: List
+      options:
+        - title: Greater
+          name:  greater
+        - title: Less
+          name:  less
+        - title: Two-sided
+          name:  two-sided
+      default: two-sided
+
+      
+    - name: boot_nullplot_yn
+      title: Plot Null Distribution
+      type: Bool
+      default: false 
+      
+      
+    - name: boot_intervalplot_yn
+      title: Visualise intervals
+      type: Bool
+      default: false
+      
+...

@@ -1,0 +1,13 @@
+---
+name:  boxplot
+title: Boxplot
+jrs:   '1.1'
+
+items:
+    - name: plot
+      type: Image
+      width:  700
+      height: 500
+      renderFun: .plot
+      
+...

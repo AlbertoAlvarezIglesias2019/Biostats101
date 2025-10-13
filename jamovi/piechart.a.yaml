@@ -1,0 +1,113 @@
+---
+name:  piechart
+title: Pie Chart..
+menuGroup: Biostats101
+version: '1.0.0'
+jas: '1.2'
+
+options:
+    - name: data
+      type: Data
+
+    - name: yyy
+      title: Outcome
+      type: Variable
+      suggested: [  ordinal, nominal ]
+      permitted: [ factor ]  
+      
+    - name: ppp
+      title: Panel by
+      type: Variable
+      suggested: [ ordinal, nominal ]
+      permitted: [ factor ]  
+      
+    - name: summ_data
+      title: Columns containing the table
+      type: Variables
+      suggested: [ continuous ]
+      permitted: [ numeric ]
+
+    - name: summ_lab
+      title: Labels for the table
+      type: Variable
+      suggested: [ ordinal, nominal ]
+      permitted: [ factor ]
+      
+    - name: summ_lab_ref
+      title: Reference level
+      type: Level
+      variable: (summ_lab) 
+      
+    - name: imis
+      title: Include Missing
+      type: Bool
+      default: false  
+      
+    - name: nd
+      title: Decimals
+      type: Integer
+      min: 0
+      max: 6
+      default: 1  
+      
+    - name: lpo
+      title: Legend position
+      type: List
+      options:
+        - title: None
+          name:  none
+        - title: Left
+          name:  left
+        - title: Top
+          name:  top
+        - title: Right
+          name:  right
+        - title: Bottom
+          name:  bottom
+      default: right
+      
+    - name: tasi
+      title: Font size
+      type: List
+      options:
+        - title: Small
+          name:  ts
+        - title: Medium
+          name:  tm
+        - title: Large
+          name:  tl
+      default: tm
+      
+    - name: suty
+      title: Summary type
+      type: List
+      options:
+        - title: None
+          name:  none
+        - title: Counts
+          name:  c
+        - title: Percentages
+          name:  p
+        - title: Percentages (Counts)
+          name:  pc
+      default: none
+      
+      
+    - name: mti
+      title: Main title
+      type: String
+
+    - name: msti
+      title: Subtitle
+      type: String
+      
+    - name: lti
+      title: Legend title
+      type: String
+
+    - name: mist
+      title: Missing Label
+      type: String
+      
+...
+

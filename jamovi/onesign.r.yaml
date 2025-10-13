@@ -1,0 +1,43 @@
+---
+name:  onesign
+title: One-Sample Sign..
+jrs:   '1.1'
+
+items:
+
+    - name: ghostplot
+      type: Image
+      width: 700
+      height: 1
+      renderFun: .ghostplot
+
+
+    - name:  tablestyle_test
+      type:  Html
+      visible: (yyy)
+
+
+    - name:  tablestyle_boot
+      type:  Html
+      clearWith:
+          - yyy
+      visible: (boot_yn)
+  
+     
+    - name: boot_plot_interval
+      title: Bootstrap Intervals
+      type: Image
+      width: 500
+      height: 300
+      renderFun: .boot_plot_interval
+      visible: (boot_yn && boot_intervalplot_yn) 
+      
+    - name: boot_plot_null
+      title: Bootstrap Null Distribution
+      type: Image
+      width: 500
+      height: 300
+      renderFun: .boot_plot_null
+      visible: (boot_yn && testyn_boot && boot_nullplot_yn)
+
+...

@@ -1,0 +1,144 @@
+---
+title: What the Package Does (Title Case)
+name: Biostats101
+version: 0.0.0
+jms: '1.0'
+authors:
+  - Who wrote it
+maintainer: The package maintainer <yourself@somewhere.net>
+date: '1970-01-01'
+type: R
+description: >-
+  More about what it does (maybe more than one line) Use four spaces when
+  indenting paragraphs within the Description.
+analyses:
+  - title: Scatterplot
+    name: scatterplot
+    ns: Biostats101
+    category: analyses
+    menuGroup: Biostats101
+    menuSubgroup: Graphs
+    menuTitle: Scatterplot
+  - title: Boxplot
+    name: boxplot
+    ns: Biostats101
+    category: analyses
+    menuGroup: Biostats101
+    menuSubgroup: Graphs
+    menuTitle: Boxplot
+  - title: Dotplot..
+    name: dotplot
+    ns: Biostats101
+    category: analyses
+    menuGroup: Biostats101
+    menuSubgroup: Graphs
+    menuTitle: Dotplot..
+  - title: Histogram..
+    name: histogram
+    ns: Biostats101
+    category: analyses
+    menuGroup: Biostats101
+    menuSubgroup: Graphs
+    menuTitle: Histogram..
+  - title: Pie Chart..
+    name: piechart
+    ns: Biostats101
+    category: analyses
+    menuGroup: Biostats101
+    menuSubgroup: Graphs
+    menuTitle: Pie Chart..
+  - title: Bar Chart..
+    name: barchart
+    ns: Biostats101
+    category: analyses
+    menuGroup: Biostats101
+    menuSubgroup: Graphs
+    menuTitle: Bar Chart..
+  - title: Density Plot..
+    name: densityplot
+    ns: Biostats101
+    category: analyses
+    menuGroup: Biostats101
+    menuSubgroup: Graphs
+    menuTitle: Density Plot..
+  - title: Basic Statistics
+    name: basicstatistics
+    ns: Biostats101
+    category: analyses
+    menuGroup: Biostats101
+    menuSubgroup: Summaries
+    menuTitle: Basic Statistics
+  - title: Tables
+    name: tables
+    ns: Biostats101
+    category: analyses
+    menuGroup: Biostats101
+    menuSubgroup: Summaries
+    menuTitle: Tables
+  - title: One-Sample t..
+    name: onettest
+    ns: Biostats101
+    category: analyses
+    menuGroup: Biostats101
+    menuSubgroup: Analysis
+    menuTitle: One-Sample t..
+  - title: Paired t..
+    name: pairedt
+    ns: Biostats101
+    category: analyses
+    menuGroup: Biostats101
+    menuSubgroup: Analysis
+    menuTitle: Paired t..
+  - title: Two-Sample t..
+    name: twottest
+    ns: Biostats101
+    category: analyses
+    menuGroup: Biostats101
+    menuSubgroup: Analysis
+    menuTitle: Two-Sample t..
+  - title: One proportion..
+    name: oneprop
+    ns: Biostats101
+    category: analyses
+    menuGroup: Biostats101
+    menuSubgroup: Analysis
+    menuTitle: One proportion..
+  - title: Two proportions..
+    name: twoprop
+    ns: Biostats101
+    category: analyses
+    menuGroup: Biostats101
+    menuSubgroup: Analysis
+    menuTitle: Two proportions..
+  - title: One-Way ANOVA..
+    name: anova
+    ns: Biostats101
+    category: analyses
+    menuGroup: Biostats101
+    menuSubgroup: Analysis
+    menuTitle: One-Way ANOVA..
+  - title: Chi-Square Test for Association..
+    name: chisquare
+    ns: Biostats101
+    category: analyses
+    menuGroup: Biostats101
+    menuSubgroup: Analysis
+    menuTitle: Chi-Square Test for Association..
+  - title: One-Sample Sign..
+    name: onesign
+    ns: Biostats101
+    category: analyses
+    menuGroup: Biostats101
+    menuSubgroup: Nonparametrics
+    menuTitle: One-Sample Sign..
+  - title: Mann-Whitney..
+    name: mannwhitney
+    ns: Biostats101
+    category: analyses
+    menuGroup: Biostats101
+    menuSubgroup: Nonparametrics
+    menuTitle: Mann-Whitney..
+usesNative: true
+minApp: 1.0.8
+
+...

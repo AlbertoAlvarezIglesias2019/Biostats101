@@ -1,0 +1,156 @@
+---
+name:  scatterplot
+title: Scatterplot
+menuGroup: Biostats101
+version: '1.0.0'
+jas: '1.2'
+
+options:
+    - name: data
+      type: Data
+
+    - name: yyy
+      title: Y-axis (Response)
+      type: Variable
+      suggested: [ continuous ]
+      permitted: [ numeric ]
+
+    - name: xxx
+      title: X-axis (Predictor)
+      type: Variable
+      suggested: [ continuous ]
+      permitted: [ numeric ]
+      
+    - name: ccc
+      title: Color by
+      type: Variable
+      suggested: [ continuous, ordinal, nominal ]
+      permitted: [ numeric,factor ]
+      
+    - name: ppp
+      title: Panel by
+      type: Variable
+      suggested: [  ordinal, nominal ]
+      permitted: [ factor ]
+      
+    - name: saxy
+      title: Same X-Y axis
+      type: Bool
+      default: false 
+      
+    - name: lieq
+      title: Line of equality
+      type: Bool
+      default: false 
+ 
+    - name: befi
+      title: Method
+      type: List
+      options:
+        - title: None
+          name:  non
+        - title: Regression
+          name:  reg
+        - title: Smoother
+          name:  smo
+      default: non
+
+    - name: addi
+      title: Confidence intervals
+      type: Bool
+      default: false 
+      
+    - name: logt
+      title: Log transform response
+      type: Bool
+      default: false   
+      
+    - name: imis
+      title: Include Missing
+      type: Bool
+      default: false  
+      
+    - name: fli
+      title: Flip
+      type: Bool
+      default: false
+  
+    - name: lpo
+      title: Legend position
+      type: List
+      options:
+        - title: None
+          name:  none
+        - title: Left
+          name:  left
+        - title: Top
+          name:  top
+        - title: Right
+          name:  right
+        - title: Bottom
+          name:  bottom
+      default: right
+      
+    - name: mti
+      title: Main title
+      type: String
+
+    - name: msti
+      title: Subtitle
+      type: String
+      
+    - name: xax
+      title: X-axis label
+      type: String
+      
+    - name: yax
+      title: Y-axis label
+      type: String
+      
+    - name: lti
+      title: Legend title
+      type: String
+      
+      
+    - name: fosi
+      title: Font
+      type: List
+      options:
+        - title: Small
+          name:  fs
+        - title: Medium
+          name:  fm
+        - title: Large
+          name:  fl
+      default: fm
+      
+      
+    - name: posi
+      title: Points
+      type: List
+      options:
+        - title: Small
+          name:  ps
+        - title: Medium
+          name:  pm
+        - title: Large
+          name:  pl
+      default: pm
+
+    - name: lisi
+      title: Lines
+      type: List
+      options:
+        - title: Small
+          name:  ls
+        - title: Medium
+          name:  lm
+        - title: Large
+          name:  ll
+      default: lm
+
+    - name: mist
+      title: Missing Label
+      type: String
+      default: "(Unknown)"
+...

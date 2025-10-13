@@ -1,0 +1,118 @@
+---
+name:  basicstatistics
+title: Basic Statistics
+menuGroup: Biostats101
+version: '1.0.0'
+jas: '1.2'
+
+options:
+    - name: data
+      type: Data
+
+    - name: yyy
+      title: Outcome/s
+      type: Variables
+
+    - name: xxx
+      title: Group by
+      type: Variable
+      suggested: [ ordinal, nominal ]
+      permitted: [ factor ]
+      
+    - name: addp
+      title: Add P-value
+      type: Bool
+      default: false   
+
+    - name: addt
+      title: Add Overall
+      type: Bool
+      default: false   
+
+    - name: addn
+      title: Add N
+      type: Bool
+      default: false   
+      
+    - name: imis
+      title: Include Missing
+      type: Bool
+      default: false  
+      
+    - name: nd_num
+      title: Decimals
+      type: Integer
+      min: 0
+      max: 6
+      default: 1  
+   
+    - name: nd_cat
+      title: Decimals
+      type: Integer
+      min: 0
+      max: 6
+      default: 1    
+      
+    - name: suco
+      title: Customised
+      type: List
+      options:
+        - title: Mean (SD)
+          name:  meansd
+        - title: Median (IQR)
+          name:  medianiqr
+        - title: Median (Q1,Q3)
+          name:  medianqs
+      default: meansd
+      
+    - name: allco
+      title: All Descriptives
+      type: Bool
+      default: false  
+      
+    - name: suca
+      type: List
+      options:
+        - title: "n"
+          name:  n
+        - title: "%"
+          name:  p
+        - title: "n / N (%)"
+          name:  nNp
+        - title: "n (%)"
+          name:  np
+        - title: "% (n)"
+          name:  pn
+      default: nNp
+      
+      
+      
+    - name: mist
+      title: "Label: Missing"
+      type: String
+
+    - name: varl
+      title: "Label: Variable/s"
+      type: String
+      default: "Characteristic"
+      
+    - name: heal
+      title: "Label: Group By"
+      type: String
+      
+    - name: tasi
+      title: Font size
+      type: List
+      options:
+        - title: Small
+          name:  ts
+        - title: Medium
+          name:  tm
+        - title: Large
+          name:  tl
+      default: tm
+
+    - name: mti
+      title: Main title
+      type: String
+...

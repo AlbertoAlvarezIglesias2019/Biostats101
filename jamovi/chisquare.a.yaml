@@ -1,0 +1,111 @@
+---
+name:  chisquare
+title: Chi-Square Test for Association..
+menuGroup: Biostats101
+version: '1.0.0'
+jas: '1.2'
+
+options:
+    - name: data
+      type: Data
+
+    - name: rrr
+      title: Rows (Outcome)
+      type: Variable
+      suggested: [ ordinal, nominal ]
+      permitted: [ factor ]
+
+    - name: refr
+      title: Event
+      type: Level
+      variable: (rrr) 
+      
+    - name: ccc
+      title: Columns (Grouping variable)
+      type: Variable
+      suggested: [ ordinal, nominal ]
+      permitted: [ factor ]
+     
+    - name: refc
+      title: Reference level
+      type: Level
+      variable: (ccc) 
+
+    - name: summ_data
+      title: Columns containing the table
+      type: Variables
+      suggested: [ continuous ]
+      permitted: [ numeric ]
+
+    - name: summ_lab
+      title: Labels for the table
+      type: Variable
+      suggested: [ ordinal, nominal ]
+      permitted: [ factor ]
+      
+    - name: summ_lab_ref
+      title: Reference level
+      type: Level
+      variable: (summ_lab) 
+      
+    - name: nude
+      title: Decimals
+      type: Integer
+      min: 0
+      max: 6
+      default: 1  
+      
+    - name: imis
+      title: Include Missing
+      type: Bool
+      default: false  
+      
+    - name: tasi
+      title: Font size
+      type: List
+      options:
+        - title: Small
+          name:  ts
+        - title: Medium
+          name:  tm
+        - title: Large
+          name:  tl
+      default: tm
+      
+    - name: plotdata_yn
+      title: Plot Data
+      type: Bool
+      default: false
+      
+    - name: ph_yn
+      title: Perform pairwise comparisons
+      type: Bool
+      default: false 
+      
+    - name: method
+      title: Method adjusted p-value
+      type: List
+      options:
+        - title: None
+          name:  none
+        - title: Bonferroni
+          name:  bonferroni
+        - title: Holm
+          name:  holm
+        - title: Hochberg
+          name:  hochberg
+        - title: Hommel
+          name:  hommel
+      default: bonferroni
+      
+    - name: transpose_yn
+      title: Transpose data
+      type: Bool
+      default: false 
+      
+    - name: ph_plot_intervals_yn
+      title: Display intervals
+      type: Bool
+      default: false 
+
+...

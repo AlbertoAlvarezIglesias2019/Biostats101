@@ -1,0 +1,97 @@
+title: One-Way ANOVA..
+name: anova
+jus: '3.0'
+stage: 0
+compilerMode: tame
+children:
+  - type: VariableSupplier
+    persistentItems: false
+    stretchFactor: 1
+    children:
+      - type: TargetLayoutBox
+        label: Outcome
+        children:
+          - type: VariablesListBox
+            name: yyy
+            maxItemCount: 1
+            isTarget: true
+      - type: TargetLayoutBox
+        label: Grouping variable
+        children:
+          - type: VariablesListBox
+            name: xxx
+            maxItemCount: 1
+            isTarget: true
+          - type: LevelSelector
+            name: refl
+  - type: LayoutBox
+    margin: large
+    children:
+      - type: CheckBox
+        name: plotdata_yn
+      - type: Label
+        label: Hypothesis Test
+        children:
+          - type: LayoutBox
+            margin: large
+            children:
+              - type: CheckBox
+                name: ev
+              - type: CheckBox
+                name: norma_assess_yn
+
+  - type: CollapseBox
+    label: Options
+    collapsed: true
+    margin: large
+    children:
+      - type: Label
+        label: General
+        children:
+          - type: LayoutBox
+            margin: large
+            children:
+              - type: CheckBox
+                name: imis
+              - type: TextBox
+                name: nude
+                format: number
+      - type: Label
+        label: Size
+        children:
+          - type: LayoutBox
+            style: inline
+            children:
+              - type: Label
+                label: FONT
+              - type: RadioButton
+                name: tasi_ts
+                optionName: tasi
+                optionPart: ts
+              - type: RadioButton
+                name: tasi_tm
+                optionName: tasi
+                optionPart: tm
+              - type: RadioButton
+                name: tasi_tl
+                optionName: tasi
+                optionPart: tl
+  - type: CollapseBox
+    label: Comparisons
+    collapsed: true
+    margin: large
+    children:
+      - type: CheckBox
+        name: ph_yn
+      - type: ComboBox
+        name: method
+        enable: (ph_yn)
+      - type: Label
+        label: Display
+        children:
+          - type: CheckBox
+            name: ph_plot_intervals_yn
+            enable: (ph_yn)
+          - type: CheckBox
+            name: ph_plot_significance_yn
+            enable: (ph_yn)

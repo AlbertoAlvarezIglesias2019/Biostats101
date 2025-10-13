@@ -1,0 +1,57 @@
+---
+name:  twottest
+title: Two-Sample t..
+jrs:   '1.1'
+
+items:
+
+    - name: ghostplot
+      type: Image
+      width: 700
+      height: 1
+      renderFun: .ghostplot
+      
+    - name: nomality_plot
+      title: Normality Assessment
+      type: Image
+      width: 700
+      height: 500
+      renderFun: .nomality_plot
+      visible: (norma_assess_yn)
+      
+    - name:  warning_message
+      type:  Html
+    - name:  tablestyle_ttest_1
+      type:  Html
+
+    - name:  tablestyle_ttest_2
+      type:  Html
+
+    - name:  tablestyle_ttest_summ
+      type:  Html
+      visible: (summ_yn)
+      
+    - name:  tablestyle_boot
+      type:  Html
+      clearWith:
+          - yyy
+      visible: (boot_yn)
+  
+     
+    - name: boot_plot_interval
+      title: Bootstrap Intervals
+      type: Image
+      width: 500
+      height: 300
+      renderFun: .boot_plot_interval
+      visible: (boot_yn && boot_intervalplot_yn) 
+      
+    - name: boot_plot_null
+      title: Bootstrap Null Distribution
+      type: Image
+      width: 500
+      height: 300
+      renderFun: .boot_plot_null
+      visible: (boot_yn && testyn_boot && boot_nullplot_yn)
+      
+...

@@ -1,0 +1,22 @@
+---
+name:  piechart
+title: Pie Chart..
+jrs:   '1.1'
+
+items:
+    - name: ghostplot
+      type: Image
+      width: 700
+      height: 1
+      renderFun: .ghostplot
+      
+    - name: warning_message
+      type: Html
+      
+    - name: plot
+      type: Image
+      width:  700
+      height: 500
+      renderFun: .plot
+
+...
