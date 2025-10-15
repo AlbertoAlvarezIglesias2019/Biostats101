@@ -85,7 +85,7 @@
 #'   testyn_normal = TRUE
 #' ) 
 
-twoprop____normal <- function(data, variable, by, conf_normal, alt_normal, yatc, nd, font_size, imis = FALSE,meth, testyn_normal = FALSE) {
+twoprop____normal <- function(data, variable, by, conf_normal, alt_normal, yatc, nd, font_size, imis = FALSE,meth="asymptotic", testyn_normal = FALSE) {
   
   # --- 1. PREPARE DATA AND RUN TEST ---
   
@@ -148,7 +148,7 @@ twoprop____normal <- function(data, variable, by, conf_normal, alt_normal, yatc,
   
   # Calculate DF and test statistic
   defr <- fit$parameter
-  tt <- round(fit$statistic,2)
+  tt <- round(sqrt(fit$statistic),2)
   
   # Format the p-value with boundary conditions.
   pv <- fit$p.value
@@ -206,7 +206,7 @@ twoprop____normal <- function(data, variable, by, conf_normal, alt_normal, yatc,
       position = "left",
       font_size = font_size
     ) %>%
-    add_header_above(header_vector)%>%
+    kableExtra::add_header_above(header_vector)%>%
     # Add vertical borders and padding to columns.
     kableExtra::column_spec(
       column = 1:dim(dframe)[2],
@@ -252,7 +252,7 @@ twoprop____normal <- function(data, variable, by, conf_normal, alt_normal, yatc,
     Se = ssee,
     Ci = ci,
     Tt = tt,
-    Df = defr,
+    #Df = defr,
     Pval = pval
   )
   row.names(dframe) <- NULL
@@ -260,14 +260,14 @@ twoprop____normal <- function(data, variable, by, conf_normal, alt_normal, yatc,
   # Define the table column headers with HTML formatting.
   col_headers_html <- c("Diff","SE Diff", 
     paste(conf_normal * 100, "% CI for p<sub>1</sub> - p<sub>2</sub><sup>1</sup>", sep = ""),
-    "X-squared","DF",
+    "Z",#"DF",
     "P-value<sup>2</sup>"
   )
   
   # Conditionally remove columns for missing values and p-value.
   if (!testyn_normal) {
-    dframe <- dframe %>% dplyr::select(-Pval,-Tt,-Df)
-    col_headers_html <- col_headers_html[!col_headers_html %in% c("X-squared","DF","P-value<sup>2</sup>") ]
+    dframe <- dframe %>% dplyr::select(-Pval,-Tt)
+    col_headers_html <- col_headers_html[!col_headers_html %in% c("Z","P-value<sup>2</sup>") ]
   }
   
   # Conditionally remove columns for not showing SE.
