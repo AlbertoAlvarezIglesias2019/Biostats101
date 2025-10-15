@@ -17,6 +17,7 @@
 #'     \item \code{"row"}: Row percentages.
 #'     \item \code{"cell"}: Cell percentages.
 #'   }
+#' @param nd number of decimals for percentages Default is \code{"1"}.
 #'
 #' @details
 #' The function converts missing values (\code{NA}) to a special factor level "MMM"
@@ -74,7 +75,7 @@
 #' tab_cell <- my_tbl_cross(iris, row = "PL_grp", col = "Species_char", perc = "cell")
 #' # print(tab_cell)
 #' }
-my_tbl_cross <- function(data, row, col, perc = "none") {
+my_tbl_cross <- function(data, row, col, perc = "none",nd=1) {
   
   # 1. Prepare data and handle missing values
   tmpDat <- data.frame(
@@ -82,7 +83,7 @@ my_tbl_cross <- function(data, row, col, perc = "none") {
     RRR = data[[row]]  # Row Variable
   )
   
-  ndp <- 1
+  ndp <- nd
   
   tmpDat$CCC <- base::addNA(tmpDat$CCC)
   tmpDat$RRR <- base::addNA(tmpDat$RRR)

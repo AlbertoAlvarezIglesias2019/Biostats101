@@ -31,6 +31,7 @@
 #'   \code{my_tbl_cross} test, formatted by \code{pvformat}.
 #' @param font_size Numeric. The base font size for the table, in pixels (default is 16).
 #' @param mti Character string. The main title or caption for the table, displayed with custom HTML styling.
+#' @param nd number of decimals for percentages Default is \code{"1"}.
 #'
 #' @return A list containing the generated HTML table object, suitable for display in R Markdown
 #'   or Shiny applications.
@@ -105,7 +106,8 @@ tables____html <- function(data,
                            margin_text = NULL,
                            addp = TRUE,
                            font_size = 16,
-                           mti = NULL) {
+                           mti = NULL,
+                           nd = 1) {
   
   # Define labels for missing and margin totals
   mist <- "Unknown"
@@ -121,7 +123,7 @@ tables____html <- function(data,
   # +++++++++++++++++++++++
   # NOTE: my_tbl_cross and pvformat are assumed to be user-defined functions
   # and are not explicitly defined here.
-  TTT <- my_tbl_cross(data, row = row, col = col, perc = percent)
+  TTT <- my_tbl_cross(data, row = row, col = col, perc = percent,nd=nd)
   
   tbl <- TTT %>%
     dplyr::select(-test_name)

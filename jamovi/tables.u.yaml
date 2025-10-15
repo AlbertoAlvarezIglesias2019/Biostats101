@@ -51,6 +51,9 @@ children:
                 name: addp
               - type: CheckBox
                 name: imis
+              - type: TextBox
+                name: nd
+                format: number
       - type: Label
         label: Size
         children:

@@ -31,6 +31,13 @@ options:
       type: Bool
       default: false  
       
+    - name: nd
+      title: Decimals
+      type: Integer
+      min: 0
+      max: 6
+      default: 1  
+      
     - name: perc
       type: List
       title: Percentages

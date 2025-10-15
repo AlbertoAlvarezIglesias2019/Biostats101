@@ -33,7 +33,8 @@ tablesClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
                                      margin_text = self$options$mart,
                                      addp = self$options$addp,
                                      font_size = font_size,
-                                     mti = self$options$mti)
+                                     mti = self$options$mti,
+                                     nd = self$options$nd)
           
       
           
