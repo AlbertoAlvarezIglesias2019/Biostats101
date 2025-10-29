@@ -37,7 +37,7 @@ children:
             maxItemCount: 1
             isTarget: true
   - type: CollapseBox
-    label: Appearence
+    label: Appearance
     collapsed: true
     margin: large
     children:

@@ -54,7 +54,7 @@ children:
               - type: LevelSelector
                 name: summ_lab_ref
   - type: CollapseBox
-    label: Appearence
+    label: Appearance
     collapsed: true
     margin: large
     children:
