@@ -2,8 +2,8 @@ Package: Biostats101
 Type: Package
 Title: Core Tools for Introductory Biostatistics
 Version: 0.0.0
-Author: Alberto
-Maintainer: Alberto <alberto.alvarez-iglesias>
+Author: Alberto Alvarez-Iglesias
+Maintainer: Alberto Alvarez-Iglesias <alberto.alvarez-iglesias@universityofgalway.ie>
 Description: This module provides essential, easy-to-use statistical and graphical analyses commonly used in introductory biostatistics and public health courses. Tools include functions for data exploration, such as customizable bar charts (Bar Chart..), summary tables, and other core descriptive and inferential statistics.
 License: GPL-3
 URL: https://github.com/AlbertoAlvarezIglesias2019/Biostats101.git

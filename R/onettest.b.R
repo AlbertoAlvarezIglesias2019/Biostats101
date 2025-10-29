@@ -17,8 +17,6 @@ onettestClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
             # `self$results` contains the results object (to populate)
           library(dplyr)
           library(stringr)
-          library(gtsummary)
-          library(gt)
           library(tolerance)
           library(kableExtra)
           library(infer)
