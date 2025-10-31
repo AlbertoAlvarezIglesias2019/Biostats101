@@ -142,7 +142,7 @@ twottestClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
             dasu$Group <- factor(dasu$Group)
             
             
-            call_ttest <- twomean____ttest(dasu, "Response", "Group", conf_ttest,alt_ttest,ev=FALSE,nh_ttest,nd,
+            call_ttest <- twomean____ttest(dasu, "Response", "Group", conf_ttest,alt_ttest,ev=self$options$ev,nh_ttest,nd,
                                            font_size=font_size,
                                            imis=self$options$imis,
                                            testyn_ttest=self$options$testyn_ttest)
