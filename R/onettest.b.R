@@ -88,7 +88,7 @@ onettestClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
                                         testyn_ttest=self$options$testyn_ttest)
             tbl <- as.character(call_ttest$table)
             #wrapper_div_style <- "max-width: 100%; overflow-x: auto;"
-            wrapper_div_style <- "width: 140%; max-width: 1200px; overflow-x: auto;"
+            wrapper_div_style <- "width: 150%; max-width: 1300px; overflow-x: auto;"
             final_html_output <- sprintf('<div style="%s">%s</div>', wrapper_div_style, tbl)
             self$results$tablestyle_ttest$setContent(final_html_output)
           }
@@ -116,7 +116,8 @@ onettestClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
             tbl <- as.character(call_ttest$table)
             tbl <- str_replace(tbl,"One-sample t-test","One-sample t-test (Summarised Data)")
             #wrapper_div_style <- "max-width: 100%; overflow-x: auto;"
-            wrapper_div_style <- "width: 140%; max-width: 1200px; overflow-x: auto;"
+            wrapper_div_style <- "width: 150%; max-width: 1300px; overflow-x: auto;"
+            #wrapper_div_style <- "width: 140%; max-width: 1200px; overflow-x: auto;"
             final_html_output <- sprintf('<div style="%s">%s</div>', wrapper_div_style, tbl)
             self$results$tablestyle_ttest_summ$setContent(final_html_output)
           }
@@ -136,7 +137,8 @@ onettestClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
             call_boot <- onemean____tolerance(tmpDat, varsName, conf_tolerance,poco_tolerance,side_tolerance,
                                            plotype_tolerance,nd = nd,font_size=font_size)
             tbl <- as.character(call_boot$table)
-            wrapper_div_style <- "width: 140%; max-width: 1200px; overflow-x: auto;"
+            #wrapper_div_style <- "width: 140%; max-width: 1200px; overflow-x: auto;"
+            wrapper_div_style <- "width: 150%; max-width: 1300px; overflow-x: auto;"
             final_html_output <- sprintf('<div style="%s">%s</div>', wrapper_div_style, tbl)
             self$results$tablestyle_tolerance$setContent(final_html_output)
             
@@ -181,6 +183,7 @@ onettestClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
                                       font_size = font_size,
                                       testyn_boot = self$options$testyn_boot)
             tbl <- as.character(call_boot$table)
+            #wrapper_div_style <- "width: 150%; max-width: 1300px; overflow-x: auto;"
             wrapper_div_style <- "width: 140%; max-width: 1200px; overflow-x: auto;"
             final_html_output <- sprintf('<div style="%s">%s</div>', wrapper_div_style, tbl)
             
