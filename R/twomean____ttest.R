@@ -242,19 +242,22 @@ twomean____ttest <- function(data, variable, by, conf_ttest, alt_ttest, ev=TRUE,
   )
   
   # Define the HTML strings for footnotes based on test type.
+  fn_equal_var <- if_else(ev,"<i>Note: Equal variances assumed<i>","<i>Note: Equal variances are not assumed<i>")
   if (testyn_ttest) {
     fn1 <- dplyr::if_else(alt_ttest == "two.sided", "Two-sided", "One-sided")
     fn2 <- dplyr::case_when(
-      alt_ttest == "greater" ~ paste("H<sub>1</sub>: &mu;<sub>1</sub> - &mu;<sub>1</sub>&gt;", nh_ttest, sep = ""),
-      alt_ttest == "less" ~ paste("H<sub>1</sub>: &mu;<sub>1</sub> - &mu;<sub>1</sub>&lt;", nh_ttest, sep = ""),
-      alt_ttest == "two.sided" ~ paste("H<sub>1</sub>: &mu;<sub>1</sub> - &mu;<sub>1</sub>&ne;", nh_ttest, sep = "")
+      alt_ttest == "greater" ~ paste("H<sub>1</sub>: &mu;<sub>1</sub> - &mu;<sub>2</sub>&gt;", nh_ttest, sep = ""),
+      alt_ttest == "less" ~ paste("H<sub>1</sub>: &mu;<sub>1</sub> - &mu;<sub>2</sub>&lt;", nh_ttest, sep = ""),
+      alt_ttest == "two.sided" ~ paste("H<sub>1</sub>: &mu;<sub>1</sub> - &mu;<sub>2</sub>&ne;", nh_ttest, sep = "")
     )
-    temp <- if_else(ev,"Equal variances","Non-equal variances")
-    fn2 <- paste(fn2,"; (",temp,")",sep="")
+    #temp <- if_else(ev,"; (Equal variances)","; (Non-equal variances)")
+    #fn2 <- paste(fn2,"; (",temp,")",sep="")
+    #fn2 <- paste(fn2,temp,sep="")
     fn1 <- paste("<i>", fn1, "<i>", sep = "")
     fn2 <- paste("<i>", fn2, "<i>", sep = "")
     footnotes_html <- c(fn1, fn2)
   } else {
+    #fn0 <- if_else(ev,"; (Equal variances)","; (Non-equal variances)")
     fn1 <- dplyr::if_else(alt_ttest == "two.sided", "Two-sided", "One-sided")
     fn1 <- paste("<i>", fn1, "<i>", sep = "")
     footnotes_html <- fn1
@@ -296,7 +299,9 @@ twomean____ttest <- function(data, variable, by, conf_ttest, alt_ttest, ev=TRUE,
     ) %>%
     # Add footnotes to the table.
     kableExtra::footnote(
+      general = fn_equal_var,
       number = footnotes_html,
+      general_title = "",
       escape = FALSE
     )
   
