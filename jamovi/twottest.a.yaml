@@ -160,7 +160,7 @@ options:
       default: false
       
     - name: ev
-      title: Equal variances
+      title: Assumed equal variances
       type: Bool
       default: true 
 
