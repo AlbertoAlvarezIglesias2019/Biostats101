@@ -177,7 +177,7 @@ barchart____plot <- function(data, yyy, xxx, ppp, stac, imis, ilab, fli, rota,
     if (stac) {
       pt <- df %>%
         ggplot2::ggplot(ggplot2::aes(x = outcome, y = ggplot2::after_stat(count))) +
-        ggplot2::geom_bar(position = "stack", stat = "count",width = 0.5) +
+        ggplot2::geom_bar(position = "stack", stat = "count",width = 0.5,color = "black",linewidth = 0.2) +
         ggplot2::ylab("Counts") +
         ggplot2::xlab(varName)
       
@@ -194,7 +194,7 @@ barchart____plot <- function(data, yyy, xxx, ppp, stac, imis, ilab, fli, rota,
     } else {
       pt <- df %>%
         ggplot2::ggplot(ggplot2::aes(x = outcome, y = ggplot2::after_stat(count))) +
-        ggplot2::geom_bar(position = ggplot2::position_dodge(), stat = "count",width = 0.5) +
+        ggplot2::geom_bar(position = ggplot2::position_dodge(), stat = "count",width = 0.5,color = "black",linewidth = 0.2) +
         ggplot2::ylab("Counts") +
         ggplot2::xlab(varName)
       
@@ -219,7 +219,7 @@ barchart____plot <- function(data, yyy, xxx, ppp, stac, imis, ilab, fli, rota,
     if (stac) {
       pt <- df %>%
         ggplot2::ggplot(ggplot2::aes(x = outcome, y = ggplot2::after_stat(prop))) +
-        ggplot2::geom_bar(position = "stack", stat = "prop",width = 0.5) +
+        ggplot2::geom_bar(position = "stack", stat = "prop",width = 0.5,color = "black",linewidth = 0.2) +
         ggplot2::ylab("Percent") +
         ggplot2::xlab(varName) +
         ggplot2::scale_y_continuous(labels = scales::percent)
@@ -238,7 +238,7 @@ barchart____plot <- function(data, yyy, xxx, ppp, stac, imis, ilab, fli, rota,
     } else {
       pt <- df %>%
         ggplot2::ggplot(ggplot2::aes(x = outcome, y = ggplot2::after_stat(prop))) +
-        ggplot2::geom_bar(position = ggplot2::position_dodge(), stat = "prop",width = 0.5) +
+        ggplot2::geom_bar(position = ggplot2::position_dodge(), stat = "prop",width = 0.5,color = "black",linewidth = 0.2) +
         ggplot2::ylab("Percent") +
         ggplot2::xlab(varName) +
         ggplot2::scale_y_continuous(labels = scales::percent)
@@ -266,7 +266,7 @@ barchart____plot <- function(data, yyy, xxx, ppp, stac, imis, ilab, fli, rota,
     if (stac) {
       pt <- df %>%
         ggplot2::ggplot(ggplot2::aes(x = group, y = ggplot2::after_stat(count), fill = outcome, by = group)) +
-        ggplot2::geom_bar(position = "stack", stat = "count", width = 0.5) +
+        ggplot2::geom_bar(position = "stack", stat = "count", width = 0.5,color = "black",linewidth = 0.2) +
         ggplot2::ylab("Counts") +
         ggplot2::xlab(byName)
       
@@ -283,7 +283,7 @@ barchart____plot <- function(data, yyy, xxx, ppp, stac, imis, ilab, fli, rota,
     } else {
       pt <- df %>%
         ggplot2::ggplot(ggplot2::aes(x = group, y = ggplot2::after_stat(count), fill = outcome, by = group)) +
-        ggplot2::geom_bar(position = ggplot2::position_dodge(), stat = "count",width = 0.5) +
+        ggplot2::geom_bar(position = ggplot2::position_dodge(), stat = "count",width = 0.5,color = "black",linewidth = 0.2) +
         ggplot2::ylab("Counts") +
         ggplot2::xlab(byName)
       
@@ -309,7 +309,7 @@ barchart____plot <- function(data, yyy, xxx, ppp, stac, imis, ilab, fli, rota,
     if (stac) {
       pt <- df %>%
         ggplot2::ggplot(ggplot2::aes(x = group, y = ggplot2::after_stat(prop), fill = outcome, by = group)) +
-        ggplot2::geom_bar(position = "stack", stat = "prop",width = 0.5) +
+        ggplot2::geom_bar(position = "stack", stat = "prop",width = 0.5,color = "black",linewidth = 0.2) +
         ggplot2::ylab("Percent") +
         ggplot2::xlab(byName) +
         ggplot2::scale_y_continuous(labels = scales::percent)
@@ -329,7 +329,7 @@ barchart____plot <- function(data, yyy, xxx, ppp, stac, imis, ilab, fli, rota,
       
       pt <- df %>%
         ggplot2::ggplot(ggplot2::aes(x = group, y = ggplot2::after_stat(prop), fill = outcome, by = group)) +
-        ggplot2::geom_bar(position = ggplot2::position_dodge(), stat = "prop",width = 0.5) +
+        ggplot2::geom_bar(position = ggplot2::position_dodge(), stat = "prop",width = 0.5,color = "black",linewidth = 0.2) +
         ggplot2::ylab("Percent") +
         ggplot2::xlab(byName) +
         ggplot2::scale_y_continuous(labels = scales::percent)
