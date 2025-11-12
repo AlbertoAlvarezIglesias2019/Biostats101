@@ -251,3 +251,227 @@ wald_prop_diff_ci <- function(x1, n1, x2, n2, conf.level = 0.95, alternative = c
   
   return(result)
 }
+
+
+
+
+calculate_n_normal_approx <- function(p_null, p_alt, power_val = 0.80, alpha = 0.05, alternative = "two.sided") {
+  
+  # Ensure p_alt > p_null for calculation clarity (handles |p_a - p_0|)
+  #if (p_alt < p_null) {
+  #  p_temp <- p_alt
+  #  p_alt <- p_null
+  #  p_null <- p_temp
+  #}
+  
+  # 1. Calculate Z-scores
+  # Z-score for alpha (two-sided)
+  if (alternative == "two.sided") {
+    Z_alpha <- qnorm(1 - alpha / 2)
+  } else {
+    Z_alpha <- qnorm(1 - alpha)
+  }
+  
+  # Z-score for Power (1 - Beta)
+  Z_beta <- qnorm(power_val)
+  
+  # 2. Calculate Numerator components
+  num_term1 <- Z_alpha * sqrt(p_null * (1 - p_null))
+  num_term2 <- Z_beta * sqrt(p_alt * (1 - p_alt))
+  
+  # 3. Calculate Denominator
+  denom <- p_alt - p_null
+  
+  # 4. Apply the formula and square
+  n_value <- ((num_term1 + num_term2) / denom)^2
+  
+  return(n_value)
+}
+
+
+calculate_power_normal_approx <- function(n, p_null, p_alt, alpha = 0.05, alternative = "two.sided") {
+  
+  if (p_alt==p_null) return(NA)
+  # Ensure p_alt > p_null for calculation clarity
+  #if (p_alt < p_null) {
+  #  p_temp <- p_alt
+  #  p_alt <- p_null
+  #  p_null <- p_temp
+  #}
+  
+  # 1. Calculate Z-score for alpha
+  if (alternative == "two.sided") {
+    Z_alpha <- qnorm(1 - alpha / 2)
+  } else {
+    Z_alpha <- qnorm(1 - alpha)
+  }
+  
+  # 2. Calculate Numerator (based on the derived formula)
+  term_A <- sqrt(n) * (p_alt - p_null)
+  term_B <- Z_alpha * sqrt(p_null * (1 - p_null))
+  
+  # 3. Calculate Denominator
+  denominator <- sqrt(p_alt * (1 - p_alt))
+  
+  
+  #numerator <- term_A - term_B
+  
+  # 4. Solve for Z_power (Z_1-beta)
+  #Z_power <- numerator / denominator
+  
+  # 5. Calculate Power (the CDF of Z_power)
+  #power_value <- pnorm(Z_power)
+  
+  if (alternative == "two.sided") {
+    Z_lower_power <- (-term_B - term_A) / denominator
+    power_lower_tail <- pnorm(Z_lower_power)
+    Z_upper_power <- (term_B - term_A) / denominator
+    power_upper_tail <- 1 - pnorm(Z_upper_power)
+    power_value <- power_lower_tail + power_upper_tail
+  }
+  
+  if (alternative == "greater") {
+    Z_power <- (term_B - term_A) / denominator
+    power_value <- 1 - pnorm(Z_power)
+  }
+    
+  if (alternative == "less") {
+    Z_power <- (-term_B - term_A) / denominator
+    power_value <- pnorm(Z_power)
+  }
+  
+  return(power_value)
+}
+
+
+
+calculate_p_alt_normal_approx <- function(n, p_null, power_val = 0.80, alpha = 0.05, alternative = "two.sided") {
+  
+  
+  # Calculate Z-scores
+  if (alternative == "two.sided") {
+    Z_alpha <- qnorm(1 - alpha / 2)
+  } else {
+    Z_alpha <- qnorm(1 - alpha)
+  }
+  
+  Z_beta <- qnorm(power_val)
+  
+  # --- 1. Define the Error Function ---
+  # This function calculates the difference between the target power and the power
+  # calculated at a given test proportion (p_test).
+  error_function1 <- function(p_alt) {
+    (Z_alpha*sqrt(p_null*(1-p_null)) + Z_beta*sqrt(p_alt*(1-p_alt)) ) / (p_alt-p_null) - sqrt(n)}
+  
+  sol1 <- uniroot(
+    f = error_function1,
+    interval = c(p_null+0.00001,0.99999))$root
+
+  error_function2 <- function(p_alt) {
+    (Z_alpha*sqrt(p_null*(1-p_null)) + Z_beta*sqrt(p_alt*(1-p_alt)) )/ (p_null - p_alt) - sqrt(n)}
+  
+  sol2 <- uniroot(
+    f = error_function2,
+    interval = c(0.00001,p_null-0.00001))$root  
+ 
+  if (alternative == "greater") out <- sol1
+  if (alternative == "less") out <- sol2
+  if (alternative == "two.sided") out <- c(sol2,sol1)
+  
+  return(out)
+}
+
+
+
+one_prop_power_calculator <- function(n = NULL, p_null, p_alt = NULL, power = NULL, 
+                                      alpha = 0.05, alternative = "two.sided") {
+  
+  # --- Input Validation and Parameter Counting ---
+  
+  # List all parameters that can be NULL
+  params_to_solve <- c(is.null(n), is.null(p_alt), is.null(power))
+  
+  # Count how many parameters are NULL
+  num_null <- sum(params_to_solve)
+  
+  if (num_null != 1) {
+    stop("Exactly one of 'n', 'p_alt', or 'power' must be NULL to solve for it.")
+  }
+  
+  # Ensure p_null is provided
+  if (is.null(p_null)) {
+    stop("The 'p_null' parameter must be provided.")
+  }
+  
+  # --- Determine which function to call ---
+  
+  # 1. Solve for n (Sample Size)
+  if (is.null(n)) {
+    if (p_alt == p_null) {
+      return(Inf) # If no effect size, infinite n is needed
+    }
+    
+    # Call the function to calculate n
+    result_n <- calculate_n_normal_approx(
+      p_null = p_null, 
+      p_alt = p_alt, 
+      power_val = power, 
+      alpha = alpha, 
+      alternative = alternative
+    )
+    
+    return(list(
+      method = "One-Sample Proportion Power Analysis (Normal Approximation)",
+      p_null = p_null,
+      p_alt = p_alt,
+      power = power,
+      sig.level = alpha,
+      n = result_n,
+      required_n = ceiling(result_n)
+    ))
+  }
+  
+  # 2. Solve for power
+  else if (is.null(power)) {
+    # Call the function to calculate power
+    result_power <- calculate_power_normal_approx(
+      n = n, 
+      p_null = p_null, 
+      p_alt = p_alt, 
+      alpha = alpha, 
+      alternative = alternative
+    )
+    
+    return(list(
+      method = "One-Sample Proportion Power Analysis (Normal Approximation)",
+      p_null = p_null,
+      p_alt = p_alt,
+      power = result_power,
+      sig.level = alpha,
+      n = n
+    ))
+  }
+  
+  # 3. Solve for p_alt (Alternative Proportion)
+  else if (is.null(p_alt)) {
+
+    # Call the function to solve for p_alt
+    result_p_alt <- calculate_p_alt_normal_approx(
+      n = n, 
+      p_null = p_null, 
+      power_val = power, 
+      alpha = alpha, 
+      alternative = alternative)
+    
+    return(list(
+      method = "One-Sample Proportion Power Analysis (Normal Approximation)",
+      p_null = p_null,
+      p_alt = result_p_alt,
+      power = power,
+      sig.level = alpha,
+      n = n
+    ))
+  }
+}
+
+
