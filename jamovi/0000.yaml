@@ -138,6 +138,34 @@ analyses:
     menuGroup: Biostats101
     menuSubgroup: Nonparametrics
     menuTitle: Mann-Whitney..
+  - title: 1-Sample t..
+    name: power1test
+    ns: Biostats101
+    category: analyses
+    menuGroup: Biostats101
+    menuSubgroup: Power and Sample Size
+    menuTitle: 1-Sample t..
+  - title: 2-Sample t..
+    name: power2test
+    ns: Biostats101
+    category: analyses
+    menuGroup: Biostats101
+    menuSubgroup: Power and Sample Size
+    menuTitle: 2-Sample t..
+  - title: 1 Proportion..
+    name: power1prop
+    ns: Biostats101
+    category: analyses
+    menuGroup: Biostats101
+    menuSubgroup: Power and Sample Size
+    menuTitle: 1 Proportion..
+  - title: 2 Proportions..
+    name: power2prop
+    ns: Biostats101
+    category: analyses
+    menuGroup: Biostats101
+    menuSubgroup: Power and Sample Size
+    menuTitle: 2 Proportions..
 usesNative: true
 minApp: 1.0.8
 
