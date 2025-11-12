@@ -77,6 +77,26 @@ options:
       type: Bool
       default: false
       
+    - name: intervals_yn
+      title: Perform two-sample comparisons
+      type: Bool
+      default: false 
+
+    - name: intervals_method
+      title: Method of adjustment
+      type: List
+      options:
+        - title: None
+          name:  none
+        - title: Bonferroni
+          name:  bonferroni
+      default: bonferroni
+      
+    - name: intervals_plot_yn
+      title: Display intervals
+      type: Bool
+      default: false 
+      
     - name: ph_yn
       title: Perform pairwise comparisons
       type: Bool
