@@ -1,0 +1,25 @@
+---
+name:  power2test
+title: 2-Sample t..
+jrs:   '1.1'
+
+items:
+    - name: ghostplot
+      type: Image
+      width: 750
+      height: 1
+      renderFun: .ghostplot
+
+      
+    - name:  tablestyle_html
+      type:  Html
+      
+    - name: power_plot
+      title: Power curve
+      type: Image
+      width: 750
+      height: 500
+      renderFun: .power_plot
+      visible: (poplyn)
+
+...

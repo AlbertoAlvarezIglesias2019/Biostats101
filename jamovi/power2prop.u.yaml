@@ -1,0 +1,72 @@
+title: 2 Proportions..
+name: power2prop
+jus: '3.0'
+stage: 0
+compilerMode: tame
+children:
+  - type: ComboBox
+    name: solvefor
+  - type: TextBox
+    name: 'n'
+    format: string
+    width: largest
+  - type: TextBox
+    name: p2
+    format: string
+    width: largest
+  - type: TextBox
+    name: power
+    format: string
+    width: largest
+  - type: TextBox
+    name: p1
+    format: string
+  - type: CollapseBox
+    label: Options
+    collapsed: true
+    margin: large
+    children:
+      - type: LayoutBox
+        margin: large
+        children:
+          - type: TextBox
+            name: sig.level
+            format: number
+          - type: ComboBox
+            name: alt_ttest
+          - type: CheckBox
+            name: poplyn
+  - type: CollapseBox
+    label: Appearance
+    collapsed: true
+    margin: large
+    children:
+      - type: Label
+        label: General
+        children:
+          - type: LayoutBox
+            margin: large
+            children:
+              - type: TextBox
+                name: nude
+                format: number
+      - type: Label
+        label: Size
+        children:
+          - type: LayoutBox
+            style: inline
+            children:
+              - type: Label
+                label: FONT
+              - type: RadioButton
+                name: tasi_ts
+                optionName: tasi
+                optionPart: ts
+              - type: RadioButton
+                name: tasi_tm
+                optionName: tasi
+                optionPart: tm
+              - type: RadioButton
+                name: tasi_tl
+                optionName: tasi
+                optionPart: tl

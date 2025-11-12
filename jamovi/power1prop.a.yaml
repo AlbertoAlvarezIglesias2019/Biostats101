@@ -1,0 +1,86 @@
+---
+name:  power1prop
+title: 1 Proportion..
+menuGroup: Biostats101
+version: '1.0.0'
+jas: '1.2'
+
+options:
+    - name: solvefor
+      title: Solve for
+      type: List
+      options:
+        - title: Sample Sizes
+          name:  n
+        - title: Alternative proportion
+          name:  p2
+        - title: Power
+          name:  power
+      default: n
+
+    - name: n
+      title: Sample sizes
+      type: String
+      default: ""
+
+    - name: p2
+      title: Alternative proportions
+      type: String
+      default: ""
+      
+    - name: power
+      title: Power
+      type: String      
+      default: ""
+      
+    - name: p1
+      title: Null Proportion
+      type: String  
+      default: ""
+      
+    - name: sig.level
+      title: Significant level
+      type: Number
+      min: 0
+      max: 1
+      default: 0.05 
+      
+    - name: alt_ttest
+      title: Alternative hypothesis
+      type: List
+      options:
+        - title: Greater
+          name:  greater
+        - title: Less
+          name:  less
+        - title: Two-sided
+          name:  two.sided
+      default: two.sided
+      
+
+    - name: nude
+      title: Decimals
+      type: Integer
+      min: 0
+      max: 6
+      default: 2  
+      
+    - name: tasi
+      title: Font size
+      type: List
+      options:
+        - title: Small
+          name:  ts
+        - title: Medium
+          name:  tm
+        - title: Large
+          name:  tl
+      default: tm
+      
+
+
+    - name: poplyn
+      title: Display power plot
+      type: Bool
+      default: false
+...
