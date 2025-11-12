@@ -74,6 +74,9 @@
 
 anova____ph_interval_plot <- function(data, variable, by,imis = FALSE,type) {
   
+  cole <- 0.95 
+  library(rstatix)
+  
   ##################################
   ### Choose the label for the type
   ##################################
@@ -112,8 +115,9 @@ anova____ph_interval_plot <- function(data, variable, by,imis = FALSE,type) {
                                    detailed = TRUE,
                                    p.adjust.method="none",
                                    paired = FALSE)%>%
-      rstatix::add_y_position() %>% dplyr::pull(y.position)
-    fit <- fit %>% mutate(y.position = temp)
+      rstatix::add_y_position() #%>% dplyr::pull(y.position)
+    #fit <- fit %>% mutate(y.position = temp)
+    fit <- fit %>% mutate(y.position = temp$y.position)
   }
   
   if (!type == "tukey") {
@@ -124,11 +128,22 @@ anova____ph_interval_plot <- function(data, variable, by,imis = FALSE,type) {
       rstatix::add_y_position()
   }
   
-  ypos <- fit %>% dplyr::pull(y.position)
+  #ypos <- fit %>% dplyr::pull(y.position)
+  ypos <- fit$y.position
   
   out <- fit %>% 
     dplyr::mutate(contrast = paste(group1,group2,sep = " - ")) %>% 
     dplyr::select(contrast,estimate,conf.low,conf.high,p.adj) 
+  
+  if (type == "bonferroni") {
+    temp <- data %>% rstatix::t_test(formu,
+                                  detailed = TRUE,
+                                   p.adjust.method="none",
+                                   conf.level = 1 - (1-cole)/(dim(out)[1]),
+                                   paired = FALSE)
+    out$conf.low <- temp$conf.low
+    out$conf.high  <- temp$conf.high 
+  }
   
   # Create the forest plot
   plot_intervals <- ggplot2::ggplot(out, ggplot2::aes(x = estimate, y = contrast)) +
@@ -141,7 +156,7 @@ anova____ph_interval_plot <- function(data, variable, by,imis = FALSE,type) {
     ggplot2::geom_vline(xintercept = 0, linetype = "dashed", color = "blue", linewidth = 2) +
     # Define labels and titles with large font size
     ggplot2::labs(
-      title = "Forest Plot of Group Differences",
+      title = "Interval Plot of Group Differences",
       subtitle = paste("Confidence intervals (method = ",typelab,")",sep=""),
       x = "Difference (Point Estimate)",
       y = "Contrast"
