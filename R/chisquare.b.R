@@ -162,7 +162,27 @@ chisquareClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
           
         } 
         
+      
+        ########################################
+        ### Creates the output (Intervals)
+        ########################################
+        if (self$options$intervals_yn) {
+            call_inter<- chisquare____intervals(data = tmpDat,
+                                           rrr = varsName,
+                                           ccc = byName,
+                                           nd = nd,
+                                           font_size=font_size,
+                                           type = self$options$intervals_method)
+          tbl1 <- as.character(call_inter$table)
+          final_html_output1 <- sprintf('<div style="%s">%s</div>', wrapper_div_style, tbl1)
+          self$results$intervals_table$setContent(final_html_output1)
+          
+          if (self$options$intervals_plot_yn) {
+            self$results$intervals_plot$setState(call_inter$data)
+          }
+        } 
         
+          
         ########################################
         ### Creates the output (Post-Hoc chisquare)
         ########################################
@@ -210,6 +230,29 @@ chisquareClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
         pt <- chisquare____data_plot(data  = image$state$data,
                                  variable = image$state$variable,  #self$options$rrr,
                                  by = image$state$by )  #self$options$ccc)
+        print(pt)
+        return(TRUE)
+      },
+      .intervals_plot = function(image,...){
+        #if (is.null(self$options$rrr)) return(FALSE)
+        if (is.null(image$state)) return(FALSE)
+        
+        #bp <- image$state
+        #plot(unserialize(image$state))
+        
+        pt <- chisquare____intervals_plot(image$state)
+        
+        st <- dplyr::if_else(self$options$intervals_method=="bonferroni",
+                             "Confidence intervals (with Bonferroni corrections)",
+                             "Confidence intervals (without correction)")
+        pt <- pt +
+          # Define labels and titles with large font size
+          ggplot2::labs(
+            title = "Interval Plot of Group Differences",
+            subtitle = st,
+            x = "Difference in Proportions",
+            y = ""
+          )
         print(pt)
         return(TRUE)
       },
