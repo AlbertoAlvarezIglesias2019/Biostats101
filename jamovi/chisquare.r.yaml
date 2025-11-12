@@ -26,6 +26,19 @@ items:
 
     - name:  tablestyle_test_2
       type:  Html
+     
+    - name:  intervals_table
+      type:  Html
+      visible: (intervals_yn)
+      
+    - name: intervals_plot
+      title: Intervals Plot
+      type: Image
+      width: 700
+      height: 400
+      renderFun: .intervals_plot
+      visible: (intervals_yn & intervals_plot_yn)
+      
       
     - name:  tablestyle_ph
       type:  Html
