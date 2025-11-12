@@ -16,7 +16,7 @@ anovaClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
           #library(kableExtra)
           library(ggplot2)
           #library(ggpubr)
-          #library(rstatix)
+          library(rstatix)
           
 
 
