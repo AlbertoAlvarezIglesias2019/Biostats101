@@ -88,6 +88,7 @@
 
 anova____posthoc <- function(data, variable, by, nd=1, ev = TRUE, font_size, imis = FALSE,type) {
   
+  cole <- 0.95  
   # --- 1. PREPARE DATA AND RUN T-TEST ---
   
   df <- data %>%
@@ -157,6 +158,16 @@ anova____posthoc <- function(data, variable, by, nd=1, ev = TRUE, font_size, imi
     dplyr::mutate(contrast = paste(group1,group2,sep = " - ")) %>% 
     dplyr::select(contrast,estimate,conf.low,conf.high,p.adj) 
   
+  if (type == "bonferroni") {
+    temp <- df %>% rstatix::t_test(formu,
+                                   detailed = TRUE,
+                                   p.adjust.method="none",
+                                   conf.level = 1 - (1-cole)/(dim(out)[1]),
+                                   paired = FALSE)
+    out$conf.low <- temp$conf.low
+    out$conf.high  <- temp$conf.high 
+  }
+    
   dframe <- out %>% 
     dplyr::mutate(estimate = ndformat(estimate,nd),
            conf.low = ndformat(conf.low,nd),
