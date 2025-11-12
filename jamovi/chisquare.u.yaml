@@ -93,6 +93,22 @@ children:
                 optionName: tasi
                 optionPart: tl
   - type: CollapseBox
+    label: Intervals
+    collapsed: true
+    margin: large
+    children:
+      - type: CheckBox
+        name: intervals_yn
+      - type: ComboBox
+        name: intervals_method
+        enable: (intervals_yn)
+      - type: Label
+        label: Display
+        children:
+          - type: CheckBox
+            name: intervals_plot_yn
+            enable: (intervals_yn)
+  - type: CollapseBox
     label: Comparisons
     collapsed: true
     margin: large
