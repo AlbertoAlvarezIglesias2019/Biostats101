@@ -128,4 +128,8 @@ options:
       type: Bool
       default: false 
 
+    - name: addfisher_yn
+      title: Add Fisher's exact test
+      type: Bool
+      default: false 
 ...
