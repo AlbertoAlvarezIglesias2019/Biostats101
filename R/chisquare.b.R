@@ -139,7 +139,8 @@ chisquareClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
                                    ccc = byName,
                                    nd = nd,
                                    font_size=font_size,
-                                   imis = imis)
+                                   imis = imis,
+                                   addfisher_yn = self$options$addfisher_yn)
         
         tbl1 <- as.character(call_test$table_summ)
         tbl2 <- as.character(call_test$table_infe)
