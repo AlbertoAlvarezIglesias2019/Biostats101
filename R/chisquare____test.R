@@ -51,8 +51,8 @@
 #'
 #' # Create a sample data frame
 #' 
-#' data_df <- data.frame(rrr = sample(c("A","B","C"),size=100,replace = TRUE),
-#' ccc = sample(c("Treat","Control"),size=100,replace = TRUE))
+#' data_df <- data.frame(rrr = factor(sample(c("A","B","C"),size=100,replace = TRUE)),
+#' ccc = factor(sample(c("Treat","Control"),size=100,replace = TRUE)))
 #'
 #' # Generate the chi-square tables
 #' chi_tables <- chisquare____test(
@@ -60,7 +60,8 @@
 #'   rrr = "rrr",
 #'   ccc = "ccc",
 #'   nd = 2,
-#'   font_size = 14
+#'   font_size = 14,
+#'   addfisher_yn = TRUE
 #' )
 #'
 #' # To display the tables:
@@ -88,7 +89,7 @@
 
 
 
-chisquare____test <- function(data, rrr, ccc, nd=1, font_size,imis) {
+chisquare____test <- function(data, rrr, ccc, nd=1, font_size,imis=FALSE,addfisher_yn=FALSE) {
   
   # --- 1. PREPARE DATA AND RUN T-TEST ---
   
@@ -252,17 +253,45 @@ chisquare____test <- function(data, rrr, ccc, nd=1, font_size,imis) {
   messa <- NULL
   if (any(expected_counts<5) ) messa <- "<i>Warning: Expected counts are less than 5.<br> Chi-Square test may be unreliable<i>"
   
-  fit2 <- stats::fisher.test(ttt)
-  
-  dframe <- data.frame(chisq = ndformat(fit1$statistic,3),df = fit1$parameter,pv1 = pvformat(fit1$p.value),pv2 = pvformat(fit2$p.value))
+  dframe <- data.frame(chisq = ndformat(fit1$statistic,3),df = fit1$parameter,pv1 = pvformat(fit1$p.value))
   row.names(dframe) <-NULL
   
   # Define the table column headers with HTML formatting.
   col_headers_html <- c(
-    "Chi-Square", "DF","P-value<sup>1</sup>","P-value<sup>2</sup>"
-  )
+    "Chi-Square", "DF","P-value<sup>1</sup>")
   
-
+  footnotes_html <- "<i>Pearson's Chi-squared test<i>"
+  
+  
+  
+  if (addfisher_yn) {
+    fit2 <- tryCatch(
+      {
+        # Try the standard exact test
+        stats::fisher.test(ttt)
+      },
+      # 2. Catch the FEXACT error
+      error = function(e) {
+        # Check if the error message contains the specific FEXACT indicator
+        if (grepl("FEXACT error", conditionMessage(e))) {
+          # Fallback: Run the Monte Carlo simulation
+          fisher.test(ttt, simulate.p.value = TRUE)
+        } else {
+          # If it's a different error, re-throw the original error
+          stop(e)
+        }
+      }
+    )
+    
+    dframe$pv2 <- pvformat(fit2$p.value)
+    col_headers_html <- c( col_headers_html , "P-value<sup>2</sup>")
+    fn2 <- dplyr::if_else(fit2$method=="Fisher's Exact Test for Count Data",
+                                 "<i>Fisher's Exact Test for Count Data<i>",
+                                 "<i>Fisher's Exact Test for Count Data (Monte Carlo simulation)<i>")
+    footnotes_html <- c(footnotes_html,fn2)
+  }
+  
+  
   # Create the HTML string for the table caption.
   caption_html <- paste(
     "<p style='text-align: left; margin-left: 0; font-size: ",
@@ -271,14 +300,9 @@ chisquare____test <- function(data, rrr, ccc, nd=1, font_size,imis) {
     sep = ""
   )
   
-  
-  fn1 <- "Pearson's Chi-squared test"
-  fn2 <- "Fisher's Exact Test for Count Data"
-  fn1 <- paste("<i>", fn1, "<i>", sep = "")
-  fn2 <- paste("<i>", fn2, "<i>", sep = "")
-  footnotes_html <- c(fn1, fn2)
 
-  
+
+
   
   
   # --- 3. BUILD THE KABLEEXTRA TABLE ---
