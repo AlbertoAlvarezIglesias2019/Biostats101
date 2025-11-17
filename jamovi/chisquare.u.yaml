@@ -68,6 +68,8 @@ children:
             margin: large
             children:
               - type: CheckBox
+                name: addfisher_yn
+              - type: CheckBox
                 name: imis
               - type: TextBox
                 name: nude
