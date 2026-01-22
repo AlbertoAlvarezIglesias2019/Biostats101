@@ -44,11 +44,16 @@ scatterplotClass <- if (requireNamespace('jmvcore', quietly=TRUE)) R6::R6Class(
                                   saxy = self$options$saxy,
                                   lieq = self$options$lieq,
                                   befi = self$options$befi,
+                                  befilab = self$options$befilab,
                                   addi = self$options$addi,
                                   mti = self$options$mti,
                                   msti = self$options$msti,
                                   lti = self$options$lti,
-                                  lpo = self$options$lpo) 
+                                  lpo = self$options$lpo,
+                                  ol_yn = self$options$ol_yn,
+                                  ol_fun = self$options$ol_fun,
+                                  ol_eq = self$options$ol_eq,
+                                  ol_l = self$options$ol_l) 
           
         print(fp)
         return(TRUE)
