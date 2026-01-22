@@ -80,8 +80,33 @@ children:
                     optionName: befi
                     optionPart: smo
               - type: CheckBox
+                name: befilab
+                enable: (befi_reg || befi_smo)
+              - type: CheckBox
                 name: addi
                 enable: (befi_reg || befi_smo)
+          - type: Label
+            label: Additional Lines
+            children:
+              - type: CheckBox
+                name: ol_yn
+              - type: LayoutBox
+                margin: large
+                children:
+                  - type: TextBox
+                    name: ol_eq
+                    stretchFactor: 4
+                    format: string
+                    enable: (ol_yn)
+                  - type: TextBox
+                    name: ol_l
+                    stretchFactor: 4
+                    format: string
+                    enable: (ol_yn)
+                  - type: ComboBox
+                    name: ol_fun
+                    enable: (ol_yn)
+                    
           - type: Label
             label: Size
             children:
