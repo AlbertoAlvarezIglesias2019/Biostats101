@@ -55,6 +55,11 @@ options:
           name:  smo
       default: non
 
+    - name: befilab
+      title: Named lines?
+      type: Bool
+      default: true 
+      
     - name: addi
       title: Confidence intervals
       type: Bool
@@ -153,4 +158,38 @@ options:
       title: Missing Label
       type: String
       default: "(Unknown)"
+ 
+    - name: ol_yn
+      title: Add line(s)?
+      type: Bool
+      default: false
+      
+    - name: ol_fun
+      title: Linear term transformation
+      type: List
+      options:
+        - title: Identity
+          name:  Identity
+        - title: Logarithm
+          name:  Logarithm
+        - title: Exponential
+          name:  Exponential
+        - title: Logistic
+          name:  Logistic
+      default: Identity     
+    
+    - name: ol_eq
+      title: Linear term(s)
+      type: String
+      default: ""
+      description: >
+        Enter the intercept values separated by spaces or semicolons. 
+        For example: 0; 1.5; -2. 
+        You can also use math like 1/2 or exp(1).
+
+    - name: ol_l
+      title: Label(s)
+      type: String
+      default: ""
+      
 ...
