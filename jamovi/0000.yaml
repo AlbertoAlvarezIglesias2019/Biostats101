@@ -12,34 +12,6 @@ description: >-
   More about what it does (maybe more than one line) Use four spaces when
   indenting paragraphs within the Description.
 analyses:
-  - title: Scatterplot
-    name: scatterplot
-    ns: Biostats101
-    category: analyses
-    menuGroup: Biostats101
-    menuSubgroup: Graphs
-    menuTitle: Scatterplot
-  - title: Boxplot
-    name: boxplot
-    ns: Biostats101
-    category: analyses
-    menuGroup: Biostats101
-    menuSubgroup: Graphs
-    menuTitle: Boxplot
-  - title: Dotplot..
-    name: dotplot
-    ns: Biostats101
-    category: analyses
-    menuGroup: Biostats101
-    menuSubgroup: Graphs
-    menuTitle: Dotplot..
-  - title: Histogram..
-    name: histogram
-    ns: Biostats101
-    category: analyses
-    menuGroup: Biostats101
-    menuSubgroup: Graphs
-    menuTitle: Histogram..
   - title: Pie Chart..
     name: piechart
     ns: Biostats101
@@ -54,6 +26,34 @@ analyses:
     menuGroup: Biostats101
     menuSubgroup: Graphs
     menuTitle: Bar Chart..
+  - title: Dotplot..
+    name: dotplot
+    ns: Biostats101
+    category: analyses
+    menuGroup: Biostats101
+    menuSubgroup: Graphs
+    menuTitle: Dotplot..
+  - title: Boxplot
+    name: boxplot
+    ns: Biostats101
+    category: analyses
+    menuGroup: Biostats101
+    menuSubgroup: Graphs
+    menuTitle: Boxplot
+  - title: Histogram..
+    name: histogram
+    ns: Biostats101
+    category: analyses
+    menuGroup: Biostats101
+    menuSubgroup: Graphs
+    menuTitle: Histogram..
+  - title: Scatterplot
+    name: scatterplot
+    ns: Biostats101
+    category: analyses
+    menuGroup: Biostats101
+    menuSubgroup: Graphs
+    menuTitle: Scatterplot
   - title: Density Plot..
     name: densityplot
     ns: Biostats101
