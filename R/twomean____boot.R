@@ -1,193 +1,148 @@
-#' @title Two-Sample Bootstrap Inference
+#' @title Two-Sample Bootstrap Inference (Base R Version)
 #' @description This function performs bootstrap analysis to calculate a
-#'   confidence interval for the difference in means between two groups and a
-#'   p-value for a permutation test. It is designed to be a robust alternative
-#'   to a standard t-test, particularly when assumptions of normality are
-#'   violated. The analysis leverages the `infer` package for its clear and
-#'   principled framework.
+#'    confidence interval for the difference in means between two groups and a
+#'    p-value for a permutation test using base R and ggplot2, avoiding jamovi formula sandbox errors.
 #'
 #' @param data A data frame containing the variables for the analysis.
 #' @param variable A character string specifying the name of the numeric
-#'   variable of interest.
+#'    variable of interest.
 #' @param by A character string specifying the name of the grouping factor
-#'   variable. This factor must have exactly two levels.
+#'    variable. This factor must have exactly two levels.
 #' @param conf_boot A numeric value between 0 and 1 specifying the confidence
-#'   level for the bootstrap confidence interval.
+#'    level for the bootstrap confidence interval.
 #' @param nh_boot A numeric value representing the null hypothesis mean difference.
-#'   Defaults to 0, representing the null hypothesis of no difference between
-#'   group means.
+#'    Defaults to 0.
 #' @param alt_boot A character string specifying the alternative hypothesis,
-#'   must be one of "two-sided", "greater", or "less".
-#' @param nd An integer specifying the number of decimal places for rounding
-#'   the results.
+#'    must be one of "two-sided", "greater", or "less".
+#' @param nd An integer specifying the number of decimal places for rounding.
 #' @param font_size A numeric value for the font size of the output table.
-#' @param testyn_boot A logical value; if `TRUE`, a p-value and the
-#'   corresponding alternative hypothesis footnote are included in the table.
-#'   Defaults to `FALSE`.
+#' @param testyn_boot A logical value; if TRUE, includes p-value in the table.
 #'
-#' @return A list containing three elements:
-#' \item{table}{A `kableExtra` object representing the formatted results table.}
-#' \item{plot_null}{A `ggplot` object visualizing the null distribution and
-#'   the observed statistic.}
-#' \item{plot_interval}{A `ggplot` object visualizing the bootstrap distribution
-#'   and the percentile confidence interval.}
-#'
-#' @details The function first prepares the data in a format suitable for the
-#'   `infer` package. It then generates a bootstrap distribution to compute a
-#'   percentile-based confidence interval. For the p-value, it creates a
-#'   permutation-based null distribution under the assumption of independence
-#'   between the groups. The results are presented in a professionally styled
-#'   `kableExtra` table with conditional columns and footnotes, along with
-#'   visualizations of the distributions.
+#' @return A list containing three elements: table, plot_null, and plot_interval.
 #'
 #' @importFrom dplyr if_else select
-#' @importFrom infer specify calculate generate hypothesize visualize shade_p_value get_p_value get_confidence_interval
 #' @importFrom kableExtra kable_styling column_spec row_spec footnote
 #' @importFrom knitr kable
-#' @importFrom stats setNames
-#' @importFrom ggplot2 ggplot
-
-#' @examples
-#' # For this example, we'll create a dummy data frame.
-#' # In a Jamovi context, 'data' would come from the user's dataset.
-#' set.seed(42)
-#' my_data <- data.frame(
-#'   Response = c(rnorm(50, 10, 2), rnorm(50, 12, 2)),
-#'   Group = factor(c(rep("Group 1", 50), rep("Group 2", 50)))
-#' )
+#' @importFrom stats setNames quantile
+#' @importFrom ggplot2 ggplot aes geom_histogram geom_vline labs theme_minimal
 #'
-#' # Run the bootstrap inference with a two-sided test
-#' boot_results <- twomean____boot(
-#'   data = my_data,
-#'   variable = "Response",
-#'   by = "Group",
-#'   conf_boot = 0.95,
-#'   nh_boot = 0,
-#'   alt_boot = "two-sided",
-#'   nd = 3,
-#'   font_size = 12,
-#'   testyn_boot = TRUE
-#' )
-#'
-#' # Display the resulting table and plots
-#' boot_results$table
-#' print(boot_results$plot_null)
-#' print(boot_results$plot_interval)
-#'
-#' # Run the function with only the confidence interval
-#' boot_ci_only <- twomean____boot(
-#'   data = my_data,
-#'   variable = "Response",
-#'   by = "Group",
-#'   conf_boot = 0.99,
-#'   nh_boot = 0,
-#'   alt_boot = "two-sided",
-#'   nd = 2,
-#'   font_size = 12,
-#'   testyn_boot = FALSE
-#' )
-#'
-#' boot_ci_only$table
-#' 
 twomean____boot <- function(data, variable, by, conf_boot, nh_boot, alt_boot, nd, font_size, testyn_boot = FALSE) {
   
   # =========================================================================
-  # 1. DATA PREPARATION AND INFER WORKFLOW
+  # 1. DATA PREPARATION & OBSERVED STATISTIC
   # =========================================================================
   
-
-  df <- data.frame(rrr = data[[variable]],
-                   ggg = data[[by]])
-  
-  df <- df %>% na.omit()
-  #rrr <- data[[variable]]
-  #ggg <- data[[by]]
-  
-  #stop(paste(df$ggg,collapse="; "))
-  
-  # Calculate the observed sample mean from the data.
-  d_hat <- df %>% 
-    infer::specify(response = rrr,
-                   explanatory = ggg)  %>% 
-    infer::calculate(stat = "diff in means", order = levels(data[[by]]))
-  
-  # Generate a bootstrap distribution of sample means.
-  # This is used to calculate the confidence interval.
-  boot_dist <- df %>%
-    infer::specify(response = rrr,
-                   explanatory = ggg) %>%
-    infer::generate(reps = 1000, type = "bootstrap") %>%
-    infer::calculate(stat = "diff in means", order = levels(data[[by]]))
-  
-  # Generate a null distribution centered at the null hypothesis mean.
-  # This is used to calculate the p-value.
-  null_dist <- df %>%
-    infer::specify(response = rrr,
-                   explanatory = ggg) %>%
-    infer::hypothesize(null = "independence") %>%
-    infer::generate(reps = 1000, type = "permute") %>%
-    infer::calculate(stat = "diff in means", order = levels(data[[by]]))
-  
-  # =========================================================================
-  # 2. P-VALUE AND CONFIDENCE INTERVAL CALCULATION
-  # =========================================================================
-  
-  # Create a ggplot object for the null distribution plot.
-  plot_null <- infer::visualize(null_dist) +
-    infer::shade_p_value(obs_stat = d_hat, direction = alt_boot)
-  
-
-  
-  # Get the p-value based on the observed statistic and the null distribution.
-  pv <- null_dist %>%
-    infer::get_p_value(obs_stat = d_hat, direction = alt_boot)
-  
-  # Format the p-value for display.
-  pvalue <- pvformat(pv)
-
-  
-  # Calculate the percentile confidence interval.
-  # NOTE: Your original code had `get_ci()`, which is not a standard `infer` function.
-  # This line has been corrected to use `get_confidence_interval()`.
-  percentile_ci <- infer::get_confidence_interval(
-    x = boot_dist,
-    level = conf_boot,
-    type = "percentile"
+  df <- data.frame(
+    rrr = data[[variable]],
+    ggg = as.factor(data[[by]])
   )
+  df <- stats::na.omit(df)
   
-  # Create a ggplot object to visualise the intervals.
-  plot_interval <- infer::visualize(boot_dist) +
-    infer::shade_confidence_interval(percentile_ci)
+  lvl <- levels(df$ggg)
+  if (length(lvl) != 2) {
+    stop("The grouping variable must have exactly two levels.")
+  }
   
-  # Format the confidence interval into a single string.
-  percentile_ci <- ndformat(percentile_ci, nd)
-  percentile_ci <- paste("(", paste(percentile_ci, collapse = ", "), ")", sep = "")
+  # Calculate observed difference in means (Group 1 - Group 2)
+  mean1 <- mean(df$rrr[df$ggg == lvl[1]])
+  mean2 <- mean(df$rrr[df$ggg == lvl[2]])
+  d_hat <- mean1 - mean2
   
   # =========================================================================
-  # 3. BUILD THE TABLE DATA AND HTML STRINGS
+  # 2. BOOTSTRAP & PERMUTATION DISTRIBUTIONS (BASE R)
   # =========================================================================
   
-  # Create the data frame for the table.
+  reps <- 1000
+  n_rows <- nrow(df)
+  
+  boot_diffs <- numeric(reps)
+  null_diffs <- numeric(reps)
+  
+  # Set seed for reproducibility if desired, or let user control
+  set.seed(42)
+  
+  for (i in 1:reps) {
+    # Bootstrap sample (sampling rows with replacement)
+    boot_df <- df[sample(n_rows, n_rows, replace = TRUE), ]
+    m1_b <- mean(boot_df$rrr[boot_df$ggg == lvl[1]])
+    m2_b <- mean(boot_df$rrr[boot_df$ggg == lvl[2]])
+    boot_diffs[i] <- m1_b - m2_b
+    
+    # Permutation sample (shuffling group labels)
+    perm_ggg <- sample(df$ggg)
+    m1_p <- mean(df$rrr[perm_ggg == lvl[1]])
+    m2_p <- mean(df$rrr[perm_ggg == lvl[2]])
+    null_diffs[i] <- m1_p - m2_p
+  }
+  
+  # Shift null distribution to align with null hypothesis mean difference (nh_boot)
+  null_diffs_centered <- null_diffs + nh_boot
+  
+  # =========================================================================
+  # 3. P-VALUE & CONFIDENCE INTERVAL CALCULATIONS
+  # =========================================================================
+  
+  # Calculate P-value based on alternative hypothesis direction
+  if (alt_boot == "two-sided") {
+    obs_dev <- abs(d_hat - nh_boot)
+    null_dev <- abs(null_diffs_centered - nh_boot)
+    pv <- mean(null_dev >= obs_dev)
+  } else if (alt_boot == "greater") {
+    pv <- mean(null_diffs_centered >= d_hat)
+  } else if (alt_boot == "less") {
+    pv <- mean(null_diffs_centered <= d_hat)
+  } else {
+    pv <- 1
+  }
+  
+  pvalue <- pvformat(pv)
+  
+  # Calculate percentile confidence interval
+  alpha <- 1 - conf_boot
+  percentile_ci_vals <- stats::quantile(boot_diffs, probs = c(alpha / 2, 1 - (alpha / 2)))
+  
+  # Generate plots using ggplot2
+  plot_null_df <- data.frame(stat = null_diffs_centered)
+  plot_null <- ggplot2::ggplot(plot_null_df, ggplot2::aes(x = stat)) +
+    ggplot2::geom_histogram(bins = 30, fill = "lightblue", color = "white") +
+    ggplot2::geom_vline(xintercept = d_hat, color = "red", linetype = "dashed", linewidth = 1) +
+    ggplot2::labs(title = "Null Distribution", x = "Difference in Means", y = "Count") +
+    ggplot2::theme_minimal()
+  
+  plot_boot_df <- data.frame(stat = boot_diffs)
+  plot_interval <- ggplot2::ggplot(plot_boot_df, ggplot2::aes(x = stat)) +
+    ggplot2::geom_histogram(bins = 30, fill = "lightgreen", color = "white") +
+    ggplot2::geom_vline(xintercept = percentile_ci_vals[1], color = "blue", linetype = "dotted", linewidth = 1) +
+    ggplot2::geom_vline(xintercept = percentile_ci_vals[2], color = "blue", linetype = "dotted", linewidth = 1) +
+    ggplot2::labs(title = "Bootstrap Distribution", x = "Difference in Means", y = "Count") +
+    ggplot2::theme_minimal()
+  
+  # Format confidence interval into text string
+  formatted_ci <- ndformat(percentile_ci_vals, nd)
+  percentile_ci_str <- paste("(", paste(formatted_ci, collapse = ", "), ")", sep = "")
+  
+  # =========================================================================
+  # 4. BUILD TABLE & KABLEEXTRA OUTPUT
+  # =========================================================================
+  
   dframe <- data.frame(
-    Pe = ndformat(d_hat,nd),
-    Ci = percentile_ci,
+    Pe = ndformat(d_hat, nd),
+    Ci = percentile_ci_str,
     Pval = pvalue
   )
   row.names(dframe) <- NULL
   
-  # Define the table column headers with HTML formatting.
-  col_headers_html <- c("Bootstrap<br> Diff in Means",
+  col_headers_html <- c(
+    "Bootstrap<br> Diff in Means",
     paste(conf_boot * 100, "% Bootstrap CI for &mu;<sub>1</sub> - &mu;<sub>2</sub><sup>1</sup>", sep = ""),
     "P-value<sup>2</sup>"
   )
   
-  # Conditionally remove the P-value column if not requested.
   if (!testyn_boot) {
     dframe <- dframe %>% dplyr::select(-Pval)
     col_headers_html <- col_headers_html[!col_headers_html %in% "P-value<sup>2</sup>"]
   }
   
-  # Create the HTML string for the table caption.
   caption_html <- paste(
     "<p style='text-align: left; margin-left: 0; font-size: ",
     font_size + 2,
@@ -195,7 +150,6 @@ twomean____boot <- function(data, variable, by, conf_boot, nh_boot, alt_boot, nd
     sep = ""
   )
   
-  # Define the HTML strings for footnotes based on the test type.
   if (testyn_boot) {
     fn1 <- "Based on percentiles"
     fn2 <- dplyr::case_when(
@@ -203,18 +157,10 @@ twomean____boot <- function(data, variable, by, conf_boot, nh_boot, alt_boot, nd
       alt_boot == "less" ~ paste("H<sub>1</sub>: &mu;<sub>1</sub> - &mu;<sub>2</sub>&lt;", nh_boot, sep = ""),
       alt_boot == "two-sided" ~ paste("H<sub>1</sub>: &mu;<sub>1</sub> - &mu;<sub>2</sub>&ne;", nh_boot, sep = "")
     )
-    fn1 <- paste("<i>", fn1, "<i>", sep = "")
-    fn2 <- paste("<i>", fn2, "<i>", sep = "")
-    footnotes_html <- c(fn1, fn2)
+    footnotes_html <- c(paste("<i>", fn1, "</i>", sep = ""), paste("<i>", fn2, "</i>", sep = ""))
   } else {
-    fn1 <- "Based on percentiles"
-    fn1 <- paste("<i>", fn1, "<i>", sep = "")
-    footnotes_html <- fn1
+    footnotes_html <- paste("<i>Based on percentiles</i>", sep = "")
   }
-  
-  # =========================================================================
-  # 4. BUILD THE KABLEEXTRA TABLE
-  # =========================================================================
   
   table_out <- knitr::kable(
     dframe,
@@ -224,36 +170,30 @@ twomean____boot <- function(data, variable, by, conf_boot, nh_boot, alt_boot, nd
     caption = caption_html,
     escape = FALSE
   ) %>%
-    # Style the table layout and font.
     kableExtra::kable_styling(
       full_width = FALSE,
       position = "left",
       font_size = font_size
     ) %>%
-    # Add borders and spacing to columns.
     kableExtra::column_spec(
       column = 1:dim(dframe)[2],
       border_left = "1px solid #ddd",
       border_right = "1px solid #ddd",
       extra_css = "white-space: nowrap; padding-top: 2px; padding-bottom: 2px; padding-left: 10px; padding-right: 10px;"
     ) %>%
-    # Add horizontal borders to the header and bold the text.
     kableExtra::row_spec(
       row = 0,
       bold = TRUE,
-      extra_css = "white-space: nowrap; border-bottom: 2px solid #666; border-top: 1px solid #ddd;; padding-left: 10px; padding-right: 10px;"
+      extra_css = "white-space: nowrap; border-bottom: 2px solid #666; border-top: 1px solid #ddd; padding-left: 10px; padding-right: 10px;"
     ) %>%
-    # Add horizontal borders to the first data row.
     kableExtra::row_spec(
       row = 1,
       extra_css = "border-bottom: 2px solid #666; border-top: 1px solid #ddd;"
     ) %>%
-    # Add the footnotes to the bottom of the table.
     kableExtra::footnote(
       number = footnotes_html,
       escape = FALSE
     )
   
-  # Return the table and the plot as a list.
-  list(table = table_out, plot_null = plot_null,plot_interval=plot_interval)
+  list(table = table_out, plot_null = plot_null, plot_interval = plot_interval)
 }
